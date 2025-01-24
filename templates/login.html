@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background: #212529;">
+<html lang="ru">
 
 <head>
     <meta charset="utf-8">
@@ -39,10 +39,6 @@
         }
         .cards {
             background: #808080;
-        }
-        .div-questions {
-            width:500px;
-            margin: auto
         }
         .questions {
             width: 300px;
@@ -87,91 +83,50 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navcol-5">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/signup">Sign up</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/log_in">Log in</a>
+                        </li>
                     </ul>
-                    <a class="btn ms-md-2 buttons" role="button" href="/signup" style="--bs-warning: #ffc107;--bs-warning-rgb: 255,193,7;
-                    background: rgb(105,90,44);border-color:rgb(105,90,44)">
-                        <span style="color: rgb(255, 255, 255);">Sign up</span>
-                    </a>
-                    <a class="btn btn-primary ms-md-2 buttons" role="button" href="#" style="transform: perspective(0px);
-                    margin: 1px;margin-left: 10px;">
-                        <span style="">Log in</span>
-                    </a>
                 </div>
             </div>
         </nav>
     </header>
     <br><br><br><br>
-    <section>
+    <section class="position-relative">
         <div class="container">
-            <div class="col">
-                <h2 class="text-center"><span style="color: rgb(255, 255, 255);">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4                         6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168
-                         1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
-                    </svg>
-                    Sign up</span><br></h2>
-                <p class="text-center"><span style="color: rgba(255, 255, 255, 0.75);">To register, enter the required data</span><br></p>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card-body div-questions">
+            <div class="row mb-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2>
+                        <span style="color: rgb(255, 255, 255);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4                                 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168
+                                 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                            </svg> Log in</span>
+                    </h2>
+                    <p class="w-lg-50">
+                        <span style="color: rgba(255, 255, 255, 0.75);">Enter your login and password to log in</span>
                         <br>
-                        <form class="login_form" method="post">
-                            <div class="div-questions">
-                                <label for="name" class="label_quest">Enter your full name</label>
-                                <input class="form-control questions" type="text" placeholder="full name" id="name" name="name">
-                            </div>
+                    </p>
+                </div>
+            <div class="row" style="margin:auto">
+                <div class="col-md-6 col-xl-4" style="margin:auto">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <form class="text-center" method="post">
                             <br>
-                            <div class="div-questions">
-                                <label for="login" class="label_quest">Come up with a login</label>
+                            <div class="mb-3">
                                 <input class="form-control questions" type="text" placeholder="login" id="login" name="login">
                             </div>
-                            <br>
-                            <div class="div-questions">
-                                <label for="email" class="label_quest">Enter your email</label>
-                                <input class="form-control questions" type="email" placeholder="email" id="email" name="email">
+                            <div class="mb-3">
+                                <input class="form-control" type="password" name="password" placeholder="password">
                             </div>
-                            <br>
-                            <div class="div-questions">
-                                <label for="password" class="label_quest">Come up with a password</label>
-                                <input class="form-control questions" type="password"  placeholder="password" id="password" name="password">
-                            </div>
-                            <br>
-                            <div class="div-questions">
-                                <label for="rep_password" class="label_quest">Repeat your password</label>
-                                <input class="form-control questions" type="password" placeholder="password" id="rep_password" name="rep_password">
-                            </div>
-                            <br>
-                            <div class="form-group label_quest div-questions">
-                                <label class="label_quest">Are you a student or a teacher?</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sex" id="male" value="male">
-                                    <label class="form-check-label" for="male">
-                                    Student
-                                    </label>
-                                </div>
-                                <div class="form-check div-questions">
-                                    <input class="form-check-input" type="radio" name="sex" id="female" value="female">
-                                    <label class="form-check-label" for="female" style="color: rgba(255, 255, 255, 0.75);">
-                                    Teacher
-                                    </label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-check questions">
-                                <input class="form-check-input" type="checkbox" id="formCheck-2">
-                                <label class="form-check-label" for="formCheck-2">
-                                    <span style="color: rgb(255, 255, 255);">I agree to the processing of personal data</span>
-                                </label>
-                            </div>
-                            <br>
-                            <div class="div-questions">
-                                <button class="btn btn-primary d-block div-questions buttons" type="submit" style="margin: 0px auto;width: 300px;" >Sign up</button>
-                            </div>
-                            <br>
-                            <div class="div-questions">
-                                <input class="btn btn-danger center buttons" type="reset" value="Reset">
+                            <div class="mb-3 ">
+                                <button class="btn btn-primary d-block w-50 buttons" style="margin:auto" type="submit">Login</button>
                             </div>
                             <br>
                         </form>
@@ -179,15 +134,16 @@
                 </div>
             </div>
         </div>
+        </div>
     </section>
-    <footer class="text-center" style="background:b2b2b2;">
-        <div class="container text-white py-4 py-lg-5">
+    <footer class="text-center">
+        <div class="container text-wh   ite py-4 py-lg-5">
             <ul class="list-inline">
                 <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
                 <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
                 <li class="list-inline-item"><a class="link-light text-decoration-none" href="#">Hosting</a></li>
             </ul>
-            <p style="color: rgba(255,255,255,0.75)">Copyright © 2024 KEFteme</p>
+            <p style="color: rgba(255, 255, 255, 0.75);">Copyright © 2024 KEFteme</p>
         </div>
     </footer>
 </body>

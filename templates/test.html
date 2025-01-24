@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEFteme</title>
+    <title>Образовательный Портал - Тест</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #2D2D2D;
+            background-color: #121212;
             color: #e0e0e0;
+        }
+        .navbar {
+            background-color: #1e1e1e;
         }
         .card {
             background-color: #1e1e1e;
@@ -22,45 +25,22 @@
             background-color: #2b2b2b;
             border-radius: 10px;
         }
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-height: 50vh;
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e1e1e;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
-        .button-column {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
+        .result-table {
+            margin-top: 20px;
         }
-        .buttons {
-            border-radius: 50px;
+        .correct {
+            color: green;
         }
-        .cards {
-            background: #808080;
-        }
-        .questions {
-            width: 300px;
-            margin: 1px auto;
-        }
-
-        .label_quest {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin: auto;
-            align-items: left;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .login_txt {
-            width: 400px;
-            margin: auto;
-        }
-
-        .center {
-            display: block;
-            margin: 0 auto;
+        .incorrect {
+            color: red;
         }
     </style>
 </head>
@@ -69,11 +49,7 @@
         <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="/">
-                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
-                    </span>
-                    <span style="margin-left: 5px;">
-                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
-                        KEFteme</span>
+                    <span style="margin-left: 5px;">KEFteme</span>
                 </a>
                 <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
                     <span class="visually-hidden">Toggle navigation</span>
@@ -81,12 +57,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navcol-5">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/signup">Sign up</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/log_in">Log in</a>
+                        </li>
                     </ul>
-                    <a class="btn btn-primary ms-md-2 buttons" role="button" href="#" style="transform: perspective(0px);
-                    margin: 1px;margin-left: 10px;">
-                        <span  style="color: rgb(255, 255, 255);">Log out</span>
-                    </a>
                 </div>
             </div>
         </nav>
@@ -95,71 +75,40 @@
     <main class="container my-5" style="background:#2D2D2D">
         <section id="test" class="my-5">
             <h2 class="text-center">Тест</h2>
-            <form id="quizForm">
+            <form method="POST">
                 <div class="mb-3">
                     <label for="answer1" class="form-label">Вопрос 1: Какой цвет небо?</label>
-                    <input type="text" class="form-control" style="width:300px" id="answer1" required>
+                    <input type="text" class="form-control" id="answer1" name="answer1" required>
                 </div>
                 <div class="mb-3">
                     <label for="answer2" class="form-label">Вопрос 2: Какой цвет трава?</label>
-                    <input type="text" class="form-control" style="width:300px" id="answer2" required>
+                    <input type="text" class="form-control" id="answer2" name="answer2" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Сдать тест</button>
+                <button type="submit" class="btn btn-primary">Проверить</button>
             </form>
-            <div id="results" class="result-table"></div><button id="restart" class="btn btn-secondary mt-3" style="display: none;">Начать новый тест</button>
+            {% if results %}
+            <div class="result-table">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ваш ответ</th>
+                            <th>Правильный ответ</th>
+                            <th>Результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.user_answer }}</td>
+                            <td>{{ result.correct_answer }}</td>
+                            <td class="{{ 'correct' if result.is_correct else 'incorrect' }}">{{ '✔️' if result.is_correct else '❌' }}</td>
+                        </tr>                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
         </section>
     </main>
-    <script>
-        const correctAnswers = ['голубой', 'зеленый'];
-        const quizForm = document.getElementById('quizForm');
-        const resultsContainer = document.getElementById('results');
-        const restartButton = document.getElementById('restart');
-
-
-        quizForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const userAnswers = [
-                document.getElementById('answer1').value.toLowerCase(),
-                document.getElementById('answer2').value.toLowerCase()
-            ];
-            displayResults(userAnswers);
-            quizForm.reset();
-            quizForm.style.display = 'none';
-            restartButton.style.display = 'block';
-        });
-
-
-        function displayResults(userAnswers) {
-            let html = `<table class="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Ваш ответ</th>
-                                    <th>Правильный ответ</th>
-                                    <th>Результат</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-            for (let i = 0; i < userAnswers.length; i++) {
-                const userAnswer = userAnswers[i];
-                const correctAnswer = correctAnswers[i];
-                const result = userAnswer === correctAnswer ? '✔️' : '❌';
-                const resultClass = userAnswer === correctAnswer ? 'correct' : 'incorrect';
-                html += `<tr>
-                            <td>${userAnswer}</td>
-                            <td>${correctAnswer}</td>
-                            <td class="${resultClass}">${result}</td>
-                          </tr>`;
-            }
-            html += `</tbody></table>`;
-            resultsContainer.innerHTML = html;
-        }
-
-        restartButton.addEventListener('click', function() {
-            resultsContainer.innerHTML = '';
-            quizForm.style.display = 'block';
-            restartButton.style.display = 'none';
-        });
-    </script>
     <footer class="text-center" style="background:#2D2D2D">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
@@ -167,7 +116,7 @@
                 <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
                 <li class="list-inline-item"><a class="link-light text-decoration-none" href="#">Hosting</a></li>
             </ul>
-            <p style="color: rgba(255,255,255,0.75)">Copyright © 2024 KEFteme</p>
+            <p style="color: rgba(255,255,255,0.75)">Copyright © 2024 IT Monkeys</p>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
