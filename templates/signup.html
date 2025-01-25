@@ -81,23 +81,35 @@
                         <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
                         KEFteme</span>
                 </a>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navcol-5">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="btn ms-md-2 buttons">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="btn ms-md-2 buttons">
-                            <a class="nav-link" href="/signup">Sign up</a>
-                        </li>
-                        <li class="btn ms-md-2 buttons">
-                            <a class="nav-link" href="/log_in">Log in</a>
-                        </li>
-                    </ul>
-                </div>
+                {% if user == -1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </nav>
     </header>

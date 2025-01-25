@@ -48,25 +48,39 @@
                 <a class="navbar-brand d-flex align-items-center" href="/">
                     <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
                     </span>
-                    <span style="margin-left: 5px;">KEFteme</span>
+                    <span style="margin-left: 5px;">
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
+                        KEFteme</span>
                 </a>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navcol-5">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="btn ms-md-2 buttons">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="btn ms-md-2 buttons">
-                            <a class="nav-link" href="/signup">Sign up</a>
-                        </li>
-                        <li class="btn ms-md-2 buttons">
-                            <a class="nav-link" href="/log_in">Log in</a>
-                        </li>
-                    </ul>
-                </div>
+                {% if user == -1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </nav>
     </header>
@@ -91,17 +105,16 @@
                         <div class="card-body">
                             <h3>Курс 1</h3>
                             <p>Описание курса 1.</p>
-                            <button class="btn btn-primary buttons">Перейти к курсу</button>
+                            <a class="btn btn-primary buttons" href="/lec">Перейти к курсу</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-
                     <div class="card mb-4 cards">
                         <div class="card-body">
                             <h3>Курс 2</h3>
                             <p>Описание курса 2.</p>
-                            <button class="btn btn-primary buttons">Перейти к курсу</button>
+                            <a class="btn btn-primary buttons" href="/lec">Перейти к курсу</a>
                         </div>
                     </div>
                 </div>
@@ -110,7 +123,7 @@
                         <div class="card-body">
                             <h3>Курс 3</h3>
                             <p>Описание курса 3.</p>
-                            <button class="btn btn-primary buttons">Перейти к курсу</button>
+                            <a class="btn btn-primary buttons" href="/lec">Перейти к курсу</a>
                         </div>
                     </div>
                 </div>
@@ -126,7 +139,7 @@
                         <div class="card-body">
                             <h3>Тест</h3>
                             <p>Описание теста.</p>
-                            <button class="btn btn-primary buttons">Начать тест</button>
+                            <a class="btn btn-primary buttons" href="/test">Перейти к курсу</a>
                         </div>
                     </div>
                 </div>

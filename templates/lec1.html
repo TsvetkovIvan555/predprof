@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекции по математике</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #343a40;
+            color: white;
+        }
+        .content-section {
+            margin-top: 40px;
+        }
+        .presentation-container {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        iframe {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<header class="fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    </span>
+                    <span style="margin-left: 5px;">
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
+                        KEFteme</span>
+                </a>
+                {% if user == -1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+<br><br><br><br>
+<div class="container content-section">
+    <h1 class="text-center">Лекции по математике</h1>
+
+    <div class="lecture-section">
+        <h2>Текст лекции</h2>
+        <p>Математика — это наука о числах, формах и структурах. Она изучает количественные и пространственные отношения, которые возникают в естественных и искусственных системах. В математике используются абстрактные символы для описания различных концепций, таких как операции, функции и уравнения. Математические методы применяются в самых различных областях: от физики и инженерии до экономики и социальных наук.</p>
+    </div>
+
+    <div class="presentation-section">
+        <h2>Встроенная презентация</h2>
+        <div class="presentation-container">
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQVHtS8Q5V4TNs01Z-Zl8Z5G0Q2SEquBAYgL8vLJYwBd2sY3SNjoBdLJZ9v4Yg1H9l4e-1xHx2n4I8y6/embed?start=true&loop=false&delayms=3000" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <h2>Видеоматериал</h2>
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://yandex.ru/video/preview/493597877534897183" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center" style="background: #2D2D2D;">
+    <div class="container text-white py-4 py-lg-5">
+        <ul class="list-inline">
+            <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
+            <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
+            <li class="list-inline-item"><a class="link-light text-decoration-none" href="#">Hosting</a></li>
+        </ul>
+        <p style="color: rgba(255,255,255,0.75)">Copyright © 2024 IT Monkeys</p>
+    </div>
+</footer>
+</body>
+</html>
