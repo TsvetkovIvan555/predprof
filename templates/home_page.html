@@ -1,157 +1,78 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEFteme</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #2D2D2D;
-            color: #e0e0e0;
-        }
-        .card {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card-body {
-            background-color: #2b2b2b;
-            border-radius: 10px;
-        }
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-height: 50vh;
-        }
-        .button-column {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
-        }
-        .buttons {
-            border-radius: 50px;
-        }
-        .cards {
-            background: #808080;
-        }
-    </style>
-</head>
-<body>
-    <header class="fixed-top">
-        <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
-                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
-                    </span>
-                    <span style="margin-left: 5px;">KEFteme</span>
-                </a>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navcol-5">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    </ul>
-                    <a class="btn btn-primary ms-md-2 buttons" role="button" href="#" style="transform: perspective(0px);
-                    margin: 1px;margin-left: 10px;">
-                        <span style="color: rgb(255, 255, 255);">Sign up</span>
-                    </a>
-                    <a class="btn btn-primary ms-md-2 buttons" role="button" href="#" style="transform: perspective(0px);
-                    margin: 1px;margin-left: 10px;">
-                        <span style="">Log in</span>
-                    </a>
+{% extends "base.html" %}
+
+{% block content1 %}
+<link rel="stylesheet" href="/static/styles/home_page.css">
+{% endblock %}
+
+{% block content2 %}
+<main class="container my-5">
+    <div class="welcome-section my-4">
+        <div>
+            <h1>&nbsp&nbspДобро пожаловать!</h1>
+            <h2>Наш образовательный ресурс. Он создан для подготовки к экзаменам. Надеюсь, вы сочтете его полезным.</h2>
+        </div>
+        <div class="button-column" style="border-radius: 100px">
+            <a href="#courses" class="btn btn-primary mb-2 btn-lg buttons" style="width:150px; margin: 5px auto; background: rgb(105,90,44);border-color:rgb(105,90,44)">Курсы</a>
+            <a href="#solution" class="btn btn-primary mb-2 btn-lg buttons" style="width:150px; margin: 5px auto; background: rgb(105,90,44);border-color:rgb(105,90,44)">Решения</a>
+        </div>
+    </div>
+    <section id="courses" class="my-5">
+        <h2 class="text-center">Курсы</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 cards">
+                    <div class="card-body">
+                        <h3>Таблицы истинности</h3>
+                        <p>Логичесие операции</p>
+                        <a class="btn btn-primary buttons" href="/lec1">Перейти к курсу</a>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <br><br>
-    <main class="container my-5">
-        <div class="welcome-section my-4">
-            <div>
-                <h1>&nbsp&nbspДобро пожаловать!</h1>
-                <h2>Наш образовательный ресурс. Он создан для подготовки к экзаменам. Надеюсь, вы сочтете его полезным.</h2>
+            <div class="col-md-4">
+                <div class="card mb-4 cards">
+                    <div class="card-body">
+                        <h3>Графы</h3>
+                        <p>Основы графов. DFS. BFS</p>
+                        <a class="btn btn-primary buttons" href="/lec2">Перейти к курсу</a>
+                    </div>
+                </div>
             </div>
-            <div class="button-column" style="border-radius: 100px">
-                <a href="#courses" class="btn btn-primary mb-2 btn-lg buttons" style="width:150px; margin: 5px auto; background: rgb(105,90,44);border-color:rgb(105,90,44)">Курсы</a>
-                <a href="#solution" class="btn btn-primary mb-2 btn-lg buttons" style="width:150px; margin: 5px auto; background: rgb(105,90,44);border-color:rgb(105,90,44)">Решения</a>
+            <div class="col-md-4">
+                <div class="card mb-4 cards">
+                    <div class="card-body">
+                        <h3>Д.П.<br></h3>
+                        <p>Динамическое программирование</p>
+                        <a class="btn btn-primary buttons" href="/lec3">Перейти к курсу</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <section id="courses" class="my-5">
-            <h2 class="text-center">Курсы</h2>
-            <br>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4 cards">
-                        <div class="card-body">
-                            <h3>Курс 1</h3>
-                            <p>Описание курса 1.</p>
-                            <button class="btn btn-primary buttons">Перейти к курсу</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+    </section>
 
-                    <div class="card mb-4 cards">
-                        <div class="card-body">
-                            <h3>Курс 2</h3>
-                            <p>Описание курса 2.</p>
-                            <button class="btn btn-primary buttons">Перейти к курсу</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 cards">
-                        <div class="card-body">
-                            <h3>Курс 3</h3>
-                            <p>Описание курса 3.</p>
-                            <button class="btn btn-primary buttons">Перейти к курсу</button>
-                        </div>
+    <section id="solution" class="my-5">
+        <h2 class="text-center">Решение</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4 cards">
+                    <div class="card-body">
+                        <h3>Тест</h3>
+                        <p>Описание теста.</p>
+                        <a class="btn btn-primary buttons" href="/test">Перейти к курсу</a>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="solution" class="my-5">
-            <h2 class="text-center">Решение</h2>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card mb-4 cards">
-                        <div class="card-body">
-                            <h3>Тест</h3>
-                            <p>Описание теста.</p>
-                            <button class="btn btn-primary buttons">Начать тест</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card mb-4 cards">
-                        <div class="card-body">
-                            <h3>Задачи</h3>
-                            <p>Описание задач.</p>
-                            <button class="btn btn-primary buttons">Перейти к задачам</button>
-                        </div>
+            <div class="col-md-6">
+                <div class="card mb-4 cards">
+                    <div class="card-body">
+                        <h3>Задачи</h3>
+                        <p>Описание задач.</p>
+                        <button class="btn btn-primary buttons">Перейти к задачам</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-    <footer class="text-center" style="#121212">
-        <div class="container text-wh   ite py-4 py-lg-5">
-            <ul class="list-inline">
-                <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
-                <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
-                <li class="list-inline-item"><a class="link-light text-decoration-none" href="#">Hosting</a></li>
-            </ul>
-            <p style="color: rgba(255, 255, 255, 0.75);">Copyright © 2024 KEFteme</p>
         </div>
-    </footer>
-</body>
-</html>
-
+    </section>
+</main>
+{% endblock %}

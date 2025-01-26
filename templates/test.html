@@ -5,66 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KEFteme</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #2D2D2D;
-            color: #e0e0e0;
-        }
-        .card {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card-body {
-            background-color: #2b2b2b;
-            border-radius: 10px;
-        }
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-height: 50vh;
-        }
-        .button-column {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
-        }
-        .buttons {
-            border-radius: 50px;
-        }
-        .cards {
-            background: #808080;
-        }
-        .questions {
-            width: 300px;
-            margin: 1px auto;
-        }
-
-        .label_quest {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin: auto;
-            align-items: left;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .login_txt {
-            width: 400px;
-            margin: auto;
-        }
-
-        .center {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/styles/test.css">
 </head>
-<body style="background:#2D2D2D">
+<body>
     <header class="fixed-top">
         <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
             <div class="container">
@@ -75,93 +18,98 @@
                         <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
                         KEFteme</span>
                 </a>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navcol-5">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    </ul>
-                    <a class="btn btn-primary ms-md-2 buttons" role="button" href="#" style="transform: perspective(0px);
-                    margin: 1px;margin-left: 10px;">
-                        <span  style="color: rgb(255, 255, 255);">Log out</span>
-                    </a>
-                </div>
+                {% if user == 1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% elif user == 2 %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-6">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_task">Add task</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_course">Add course</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </nav>
     </header>
-    <br><br><br>
-    <main class="container my-5" style="background:#2D2D2D">
+
+    <main class="container my-5" style="padding-top: 80px;">
         <section id="test" class="my-5">
             <h2 class="text-center">Тест</h2>
-            <form id="quizForm">
+            <form id="quizForm" method="POST">
+                {% for index, question in enumerate(questions) %}
                 <div class="mb-3">
-                    <label for="answer1" class="form-label">Вопрос 1: Какой цвет небо?</label>
-                    <input type="text" class="form-control" style="width:300px" id="answer1" required>
+                    <label for="answer{{ index }}" class="form-label">Вопрос: {{ question.text }}</label>
+                    <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
                 </div>
-                <div class="mb-3">
-                    <label for="answer2" class="form-label">Вопрос 2: Какой цвет трава?</label>
-                    <input type="text" class="form-control" style="width:300px" id="answer2" required>
-                </div>
+                {% endfor %}
                 <button type="submit" class="btn btn-primary">Сдать тест</button>
             </form>
-            <div id="results" class="result-table"></div><button id="restart" class="btn btn-secondary mt-3" style="display: none;">Начать новый тест</button>
+
+            {% if results %}
+            <div class="result-table">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ваш ответ</th>
+                            <th>Правильный ответ</th>
+                            <th>Результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.user_answer }}</td>
+                            <td>{{ result.correct_answer }}</td>
+                            <td class="{{ 'correct' if result.is_correct else 'incorrect' }}">
+                                {{ '✔️' if result.is_correct else '❌' }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
         </section>
     </main>
-    <script>
-        const correctAnswers = ['голубой', 'зеленый'];
-        const quizForm = document.getElementById('quizForm');
-        const resultsContainer = document.getElementById('results');
-        const restartButton = document.getElementById('restart');
 
-
-        quizForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const userAnswers = [
-                document.getElementById('answer1').value.toLowerCase(),
-                document.getElementById('answer2').value.toLowerCase()
-            ];
-            displayResults(userAnswers);
-            quizForm.reset();
-            quizForm.style.display = 'none';
-            restartButton.style.display = 'block';
-        });
-
-
-        function displayResults(userAnswers) {
-            let html = `<table class="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Ваш ответ</th>
-                                    <th>Правильный ответ</th>
-                                    <th>Результат</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-            for (let i = 0; i < userAnswers.length; i++) {
-                const userAnswer = userAnswers[i];
-                const correctAnswer = correctAnswers[i];
-                const result = userAnswer === correctAnswer ? '✔️' : '❌';
-                const resultClass = userAnswer === correctAnswer ? 'correct' : 'incorrect';
-                html += `<tr>
-                            <td>${userAnswer}</td>
-                            <td>${correctAnswer}</td>
-                            <td class="${resultClass}">${result}</td>
-                          </tr>`;
-            }
-            html += `</tbody></table>`;
-            resultsContainer.innerHTML = html;
-        }
-
-        restartButton.addEventListener('click', function() {
-            resultsContainer.innerHTML = '';
-            quizForm.style.display = 'block';
-            restartButton.style.display = 'none';
-        });
-    </script>
     <footer class="text-center" style="background:#2D2D2D">
-        <div class="container text-white py-4 py-lg-5">
+        <div class="container text-white py-4">
             <ul class="list-inline">
                 <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
                 <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
