@@ -83,6 +83,9 @@
                             <a class="nav-link" href="/pers_cab">Personal account</a>
                         </li>
                         <li class="btn ms-md-2 buttons">
+                          <a class="nav-link" href="/add_group">Add group</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
                             <a class="nav-link" href="/sign_out">Sign out</a>
                         </li>
                     </ul>
@@ -100,6 +103,9 @@
                             <a class="nav-link" href="/add_course">Add course</a>
                         </li>
                         <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_group">Add group</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
                             <a class="nav-link" href="/sign_out">Sign out</a>
                         </li>
                     </ul>
@@ -108,7 +114,7 @@
             </div>
         </nav>
     </header>
-    <div class="container"> 
+    <div class="container">
         <div class="text-center mb-4">
             <button class="btn btn-primary" onclick="toggleView('tasks')">Задания группы</button>
             <button class="btn btn-secondary" onclick="toggleView('users')">Список пользователей</button>
@@ -117,17 +123,7 @@
         <!-- Cards для заданий -->
         <div id="tasks">
             <div class="row">
-                {% for task in tasks %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ task.title }}</h5>
-                            <p class="card-text">{{ task.description }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% if tasks|length == 0 %}
+                {% if tests_size == 0 %}
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
@@ -136,6 +132,17 @@
                         </div>
                     </div>
                 </div>
+                {% else%}
+                    {% for test in tests %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ test['title'] }}</h5>
+                                <p class="card-text">{{ test['description'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>
@@ -143,60 +150,57 @@
         <!-- Таблица пользователей -->
         <div id="userTable" class="hidden">
             <section>
-        <div class="container">
-            <h2 class="text-center"><span style="color: rgb(255, 255, 255);">Group Statistics</span></h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Student Name</th>
-                        {% for task in tasks %}
-                        <th>{{ task.name }}</th>
-                        {% endfor %}
-                        <th>Overall Completion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for student in students %}
-                    <tr>
-                        <td>{{ student.name }}</td>
-                        {% for task in tasks %}
-                        <td style="background-color: {% if task.results[loop.index0] >= 80 %}green{% elif task.results[loop.index0] >= 50 %}yellow{% else %}red{% endif %};">
-                            {{ task.results[loop.index0] }}%
-                        </td>
-                        {% endfor %}
-                        <td style="background-color: {% if student.overall_completion >= 80 %}green{% elif student.overall_completion >= 50 %}yellow{% else %}red{% endif %};">
-                            {{ student.overall_completion }}%
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td><strong>Overall Group Completion</strong></td>
-                        {% for task in tasks %}
-                        <td style="background-color: {% if task.overall_completion >= 80 %}green{% elif task.overall_completion >= 50 %}yellow{% else %}red{% endif %};">
-                            {{ task.overall_completion }}%
-                        </td>
-                        {% endfor %}
-                        <td style="background-color: {% if overall_group_completion >= 80 %}green{% elif overall_group_completion >= 50 %}yellow{% else %}red{% endif %};">
-                            {{ overall_group_completion }}%
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br>
-            <div class="text-center">
-                <h4 style="color: rgba(255, 255, 255, 0.75);">Overall Group Completion: {{ overall_group_completion }}%</h4>
-                <div style="background-color: {% if overall_group_completion >= 80 %}green{% elif overall_group_completion >= 50 %}yellow{% else %}red{% endif %}; padding: 10px;">
-                    {{ overall_group_completion }}%
+                <div class="container">
+                    <h2 class="text-center"><span style="color: rgb(255, 255, 255);">Group Statistics</span></h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                {% for task in tasks %}
+                                <th>{{ task['name'] }}</th>
+                                {% endfor %}
+                                <th>Overall Completion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student['name'] }}</td>
+                                {% for res in results[student['name']] %}
+                                <td style="background-color: {% if task.results[loop.index0] >= 80 %}green{% elif task.results[loop.index0] >= 50 %}yellow{% else %}red{% endif %};">
+                                    {{ res }}%
+                                </td>
+                                {% endfor %}
+                                <td style="background-color: {% if student.overall_completion >= 80 %}green{% elif student.overall_completion >= 50 %}yellow{% else %}red{% endif %};">
+                                    {{ student['overall_completion'] }}%
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td><strong>Overall Group Completion</strong></td>
+                                {% for overall_res in overall_results %}
+                                <td style="background-color: {% if task.overall_completion >= 80 %}green{% elif task.overall_completion >= 50 %}yellow{% else %}red{% endif %};">
+                                    {{ overall_res }}%
+                                </td>
+                                {% endfor %}
+                                <td style="background-color: {% if overall_group_completion >= 80 %}green{% elif overall_group_completion >= 50 %}yellow{% else %}red{% endif %};">
+                                    {{ overall_group_completion }}%
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <br>
+                    <div class="text-center">
+                        <h4 style="color: rgba(255, 255, 255, 0.75);">Overall Group Completion: {{ overall_group_completion }}%</h4>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
             <h3 class="text-center">Имя учителя: {{ teacher_name }}</h3>
         </div>
     </div>
-<footer class="text-center" style="background:b2b2b2;">
+    <footer class="text-center" style="background:b2b2b2;">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
                 <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
@@ -207,5 +211,4 @@
         </div>
     </footer>
 </body>
-
 </html>

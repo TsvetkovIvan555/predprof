@@ -109,5 +109,30 @@ def sign_out():
     user = 1
     return render_template("home_page.html", user = user)
 
+@app.route('/add_group', methods=['GET', 'POST'])
+def add_group():
+    if request.method == 'GET':
+        return render_template("add_group.html", user = user)
+    else:
+        tests = []
+        tasks = []
+        studens = []
+        results = []
+        overall_results = []
+        overall_group_completion = 1
+        tests_size = 0
+        return render_template("group1.html", user = user, tests = tests, tasks = tasks, studens = studens, results = results, overall_results = overall_results, overall_group_completion = overall_group_completion, tests_size = tests_size)
+
+@app.route('/group1')
+def group1():
+    tests = []
+    tasks = []
+    studens = []
+    results = []
+    overall_results = []
+    overall_group_completion = 1
+    tests_size = 0
+    return render_template("group1.html", user = user, tests = tests, tasks = tasks, studens = studens, results = results, overall_results = overall_results, overall_group_completion = overall_group_completion, tests_size = tests_size)
+
 if __name__ == "__main__":
     app.run(port=8080, host="127.0.0.1")
