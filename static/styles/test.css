@@ -1,0 +1,25 @@
+body {
+    background-color: #2D2D2D;
+    color: #e0e0e0;
+}
+.card {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card-body {
+    background-color: #2b2b2b;
+    border-radius: 10px;
+}
+.result-table {
+    margin-top: 20px;
+}
+.correct {
+    color: green;
+}
+.incorrect {
+    color: red;
+}

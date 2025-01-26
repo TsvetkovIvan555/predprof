@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление курса - KEFteme</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/add_course.css">
+</head>
+<body>
+    <header class="fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <span>
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
+                        KEFteme</span>
+                </a>
+                {% if user == 1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% elif user == 2 %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-6">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_task">Add task</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_course">Add course</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <main class="container my-5">
+        <h2 class="text-center">Добавление курса</h2>
+        <div class="form-section my-4">
+            <form action="/add_course" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="courseTitle" class="form-label">Название темы</label>
+                    <input type="text" class="form-control" id="courseTitle" name="courseTitle" placeholder="Введите название темы" required>
+                </div>
+                <div class="mb-3">
+                    <label for="courseDescription" class="form-label">Краткое описание курса</label>
+                    <textarea class="form-control" id="courseDescription" name="courseDescription" rows="3" placeholder="Введите краткое описание" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="courseContent" class="form-label">Текст курса</label>
+                    <textarea class="form-control" id="courseContent" name="courseContent" rows="5" placeholder="Введите текст курса" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="presentationFile" class="form-label">Добавление файла презентации и/или видео</label>
+                    <input class="form-control" type="file" id="presentationFile" name="presentationFile" accept=".ppt,.pptx,.pdf,.mp4,.avi">
+                </div>
+                <button type="submit" class="btn btn-primary buttons">Добавить курс</button>
+            </form>
+        </div>
+    </main>
+    <footer class="text-center" style="#121212">
+        <div class="container text-white py-4 py-lg-5">
+            <ul class="list-inline">
+                <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
+                <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
+                <li class="list-inline-item"><a class="link-light text-decoration-none" href="#">Hosting</a></li>
+            </ul>
+            <p style="color: rgba(255, 255, 255, 0.75);">Copyright © 2024 KEFteme</p>
+        </div>
+    </footer>
+</body>
+</html>
