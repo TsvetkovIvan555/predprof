@@ -1,0 +1,3 @@
+This is task of type 1 with difficulty 2 and answer 1
+1
+Explanation

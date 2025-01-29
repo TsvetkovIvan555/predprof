@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблицы Истинности для ЕГЭ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/lection2.css">
+</head>
+<body>
+    <header class="fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    </span>
+                    <span style="margin-left: 5px;">
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
+                        KEFteme</span>
+                </a>
+                {% if user == 1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% elif user == 2 %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_group">Add group</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-6">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_task">Add task</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_course">Add course</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_group">Add group</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Графы в Информатике для ЕГЭ</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <h2>Введение в теорию графов</h2>
+                <div class="explanation">
+                    <p>Граф — это структура данных, состоящая из <span class="important">вершин</span> (узлов) и <span class="important">ребер</span> (связей между вершинами). Графы используются для моделирования отношений между объектами.</p>
+                    <p>Графы могут быть <span class="important">ориентированными</span> (где связи имеют направление) и <span class="important">неориентированными</span> (где связи не имеют направления).</p>
+                    <p>Для ЕГЭ по информатике важно понимать основные понятия и уметь работать с графами, представленными в разных формах.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                 <h2>Основные понятия</h2>
+                <ul>
+                    <li><strong>Вершина (узел)</strong>: Представляет собой объект в графе.</li>
+                    <li><strong>Ребро</strong>: Связь между двумя вершинами.</li>
+                    <li><strong>Смежные вершины</strong>: Вершины, соединенные ребром.</li>
+                    <li><strong>Путь</strong>: Последовательность вершин, соединенных ребрами.</li>
+                    <li><strong>Цикл</strong>: Путь, начинающийся и заканчивающийся в одной и той же вершине.</li>
+                     <li><strong>Степень вершины</strong>: Количество ребер, инцидентных вершине (для неориентированных графов).</li>
+                     <li><strong>Полустепень захода/исхода</strong>: Количество входящих/исходящих ребер (для ориентированных графов)</li>
+                     <li><strong>Взвешенный граф</strong>: Граф, где каждому ребру присвоено число (вес, стоимость).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+               <h2>Способы представления графов</h2>
+                <div class="explanation">
+                    <p>Графы можно представлять разными способами:</p>
+                    <ol>
+                        <li><strong>Матрица смежности</strong>: Двумерный массив, где элемент (i, j) равен 1, если существует ребро между вершинами i и j, и 0 иначе.</li>
+                        <li><strong>Список смежности</strong>: Список, где для каждой вершины хранится список смежных вершин.</li>
+                        <li><strong>Матрица инцидентности</strong>: Двумерный массив, где строки соответствуют вершинам, а столбцы ребрам.</li>
+                    </ol>
+                </div>
+
+                <h3>Пример матрицы смежности</h3>
+                <div class="table-container">
+                    <table class="table">
+</table>
+                </div>
+                 <p>В этом примере, если есть 1 на пересечении строки и столбца, то вершины связаны между собой. Например, вершины A и B связаны, а вершины A и D нет.</p>
+
+                <h3>Пример списка смежности</h3>
+                   <div class="code-example">
+                      <pre>
+A: [B, C]
+B: [A, C, D]
+C: [A, B, D]
+D: [B, C]
+                      </pre>
+                </div>
+               <p>Этот пример показывает, что вершина A смежна с вершинами B и C и т.д.</p>
+            </div>
+        </div>
+
+
+      <div class="card">
+          <div class="card-body">
+            <h2>Задачи на графы в ЕГЭ</h2>
+              <div class="explanation">
+                <p>В ЕГЭ по информатике встречаются различные задачи на графы, которые требуют:</p>
+                <ul>
+                     <li>Определения количества путей между вершинами.</li>
+                    <li>Нахождения кратчайшего пути между вершинами.</li>
+                    <li>Анализа связности графов.</li>
+                    <li>Работы с взвешенными графами.</li>
+                </ul>
+             </div>
+
+             <h3>Типичные задания</h3>
+             <p><strong>1. Определение количества путей.</strong> В таких задачах нужно посчитать количество путей определенной длины, либо из одной точки в другую. Обычно используется обход графа, который мы сейчас обсудим.</p>
+            <p><strong>2. Определение кратчайшего пути.</strong> Для таких задач существует ряд специальных алгоритмов, однако на ЕГЭ можно обойтись ручным подсчетом. </p>
+          </div>
+      </div>
+
+    <div class="card">
+        <div class="card-body">
+              <h2>Обход графа</h2>
+              <div class="explanation">
+                  <p>Существует два основных способа обхода графа:</p>
+                  <ul>
+                    <li><strong>Поиск в ширину (BFS)</strong>: Изучает граф по уровням, начиная от начальной вершины. Использует очередь.</li>
+                    <li><strong>Поиск в глубину (DFS)</strong>: Исследует одну ветвь графа до конца, затем возвращается и исследует другую ветвь. Использует стек (рекурсию).</li>
+                  </ul>
+              </div>
+
+            <h3>Пример DFS</h3>
+              <div class="code-example">
+                  <pre>
+def dfs(graph, vertex, visited):
+    visited[vertex] = True
+    print(vertex, end=" ")
+
+    for neighbor in graph[vertex]:
+        if not visited[neighbor]:
+            dfs(graph, neighbor, visited)
+
+# Пример графа в виде списка смежности
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+visited = {vertex: False for vertex in graph}
+dfs(graph, 'A', visited) # Запуск DFS из вершины A
+                  </pre>
+              </div>
+             <p>В этом примере, функция dfs проходится по вершинам и рекурсивно вызывает саму себя для необработанных вершин. </p>
+
+             <h3>Пример BFS</h3>
+            <div class="code-example">
+              <pre>
+from collections import deque
+
+def bfs(graph, start_vertex):
+    visited = {vertex: False for vertex in graph}
+    queue = deque([start_vertex])
+    visited[start_vertex] = True
+
+    while queue:
+        vertex = queue.popleft()
+        print(vertex, end=" ")
+
+        for neighbor in graph[vertex]:
+            if not visited[neighbor]:
+                visited[neighbor] = True
+                queue.append(neighbor)
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+bfs(graph, 'A') # Запуск BFS из вершины A
+              </pre>
+            </div>
+        <p>В этом примере, функция bfs использует очередь и проходит граф по уровням, сначала посещая всех соседей стартовой вершины, а потом их соседей и т.д.</p>
+        </div>
+    </div>
+
+
+    <div class="card">
+          <div class="card-body">
+                <h2>Важные советы для ЕГЭ</h2>
+              <div class="explanation">
+                <ul>
+                    <li>Обязательно переводите условия задачи в конкретное представление графа.</li>
+                    <li>Сначала делайте простые наброски на бумаге.</li>
+                    <li>Понимание алгоритмов обхода графа (DFS, BFS) может помочь в решении сложных задач.</li>
+                    <li>Проверяйте ваши решения на небольших примерах.</li>
+                </ul>
+            </div>
+        </div>
+     </div>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

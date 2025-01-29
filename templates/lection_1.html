@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблицы Истинности для ЕГЭ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/lection1.css">
+</head>
+<body>
+    <header class="fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    </span>
+                    <span style="margin-left: 5px;">
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
+                        KEFteme</span>
+                </a>
+                {% if user == 1 %}
+                     <div class="collapse navbar-collapse" id="navcol-4">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/log_in">Log in</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% elif user == 2 %}
+                    <div class="collapse navbar-collapse" id="navcol-5">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_group">Add group</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-6">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_task">Add task</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_course">Add course</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_group">Add group</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-4">
+        <h1>Таблицы Истинности в Логике для ЕГЭ</h1>
+
+        <div class="explanation">
+           <p>В информатике, особенно при подготовке к ЕГЭ, важно понимать логические операции и их представления в виде таблиц истинности. Эти таблицы показывают, каким будет результат логической операции для каждого возможного набора входных значений. Рассмотрим основные логические операции и как они представлены в таблицах истинности.</p>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2>Основные Логические Операции</h2>
+                <div class="explanation">
+                     <p>В логике используются следующие основные операции:</p>
+                     <ul>
+                        <li><strong>Конъюнкция (И, AND):</strong> Возвращает истину только если оба операнда истинны. Обозначается как <span class="logical-operator">∧</span> (или <span class="code-example">a &amp;&amp; b</span> в языках программирования).</li>
+                        <li><strong>Дизъюнкция (ИЛИ, OR):</strong> Возвращает истину, если хотя бы один из операндов истинен. Обозначается как <span class="logical-operator">∨</span> (или <span class="code-example">a || b</span>).</li>
+                        <li><strong>Инверсия (НЕ, NOT):</strong> Инвертирует значение операнда. Обозначается как <span class="logical-operator">¬</span> (или <span class="code-example">!a</span>).</li>
+                        <li><strong>Импликация (Следование, IMPLIES):</strong> Возвращает ложь только если первый операнд истинен, а второй — ложен. Обозначается как <span class="logical-operator">→</span> (или как <span class="code-example">a <= b</span> в некоторых контекстах).</li>
+                        <li><strong>Эквиваленция (Равнозначность, EQUIVALENT):</strong> Возвращает истину только если оба операнда имеют одинаковое значение (оба истинны или оба ложны). Обозначается как <span class="logical-operator">↔</span>.</li>
+                     </ul>
+                    <p class="important">В ЕГЭ могут встречаться комбинации этих операций в сложных логических выражениях. </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mb-4">
+             <div class="card-body">
+                <h2>Таблицы Истинности</h2>
+                 <div class="explanation">
+                     <p>Ниже приведены таблицы истинности для каждой из основных логических операций. Значение <span class="logical-variable">0</span> соответствует <strong>Ложь</strong>, а <span class="logical-variable">1</span> соответствует <strong>Истина</strong>.</p>
+                </div>
+
+
+             <h3>Конъюнкция (И, AND) <span class="logical-operator">∧</span></h3>
+                 <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><span class="logical-variable">a</span></th>
+                            <th><span class="logical-variable">b</span></th>
+                            <th><span class="logical-variable">a ∧ b</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+
+                </div>
+
+
+             <h3>Дизъюнкция (ИЛИ, OR) <span class="logical-operator">∨</span></h3>
+              <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><span class="logical-variable">a</span></th>
+                            <th><span class="logical-variable">b</span></th>
+                            <th><span class="logical-variable">a ∨ b</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                       </tbody>
+                   </table>
+               </div>
+               <h3>Импликация (Следование, IMPLIES) <span class="logical-operator">→</span></h3>
+                <div class="table-container">
+                   <table class="table">
+                       <thead>
+                           <tr>
+                               <th><span class="logical-variable">a</span></th>
+                               <th><span class="logical-variable">b</span></th>
+                               <th><span class="logical-variable">a → b</span></th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td>0</td>
+                               <td>0</td>
+
+                            <tr>
+                                <th><span class="logical-variable">a</span></th>
+                                <th><span class="logical-variable">b</span></th>
+                                <th><span class="logical-variable">a ↔ b</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                <h2>Порядок выполнения логических операций</h2>
+                <div class="explanation">
+                    <p>При вычислении сложных логических выражений необходимо учитывать порядок выполнения операций:</p>
+                    <ol>
+                        <li>Инверсия (<span class="logical-operator">¬</span>) выполняется первой.</li>
+                        <li>Конъюнкция (<span class="logical-operator">∧</span>) выполняется после инверсии.</li>
+                        <li>Дизъюнкция (<span class="logical-operator">∨</span>) выполняется после конъюнкции.</li>
+                         <li>Импликация (<span class="logical-operator">→</span>) выполняется после дизъюнкции.</li>
+                         <li>Эквиваленция (<span class="logical-operator">↔</span>) выполняется после импликации.</li>
+                         <li>Используйте скобки для изменения порядка вычислений. Операции внутри скобок вычисляются в первую очередь.</li>
+                    </ol>
+                     <p class="important">При отсутствии скобок операции выполняются слева направо с учетом приоритета.</p>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2>Примеры</h2>
+                <div class="explanation">
+                   <h3>Пример 1: <span class="code-example">(¬a) ∨ b</span></h3>
+                   <p>Для расчета значения данного выражения необходимо сначала инвертировать <span class="logical-variable">a</span>, а затем применить дизъюнкцию с <span class="logical-variable">b</span>.</p>
+
+                    <h3>Пример 2: <span class="code-example">a ∧ (b → c)</span></h3>
+                   <p>Здесь в первую очередь вычисляется импликация  <span class="code-example">b → c</span>, а затем конъюнкция с  <span class="logical-variable">a</span>.</p>
+
+                    <h3>Пример 3: <span class="code-example">(a ∧ b) ↔ (¬c)</span></h3>
+                    <p>Сначала нужно вычислить конъюнкцию <span class="code-example">a ∧ b</span>, затем инверсию <span class="code-example">¬c</span>, и в конце применить эквиваленцию.</p>
+                    <p class="important">Понимание этих примеров поможет решать более сложные задания на ЕГЭ.</p>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

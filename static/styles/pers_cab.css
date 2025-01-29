@@ -1,0 +1,18 @@
+body {
+    background-color: #343a40;
+    color: white;
+}
+.profile-section {
+    margin-top: 20px;
+}
+.chart-container {
+    width: 100%;
+    max-width: 300px; /* Уменьшение размера диаграммы */
+    margin: auto;
+}
+h2, h3 {
+    color: rgb(105,90,44); /* Цвет заголовков */
+}
+.highlight {
+    color: rgb(0, 123, 255); /* Цвет кнопки Log in */
+}

@@ -1,126 +1,18 @@
-<!DOCTYPE html>
-<html lang="en" style="background: #212529;">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>KEFteme</title>
-    <style>
-        body {
-            background-color: #2D2D2D;
-            color: #e0e0e0;
-        }
-        .card {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card-body {
-            background-color: #2b2b2b;
-            border-radius: 10px;
-        }
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-height: 50vh;
-        }
-        .button-column {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
-        }
-        .buttons {
-            border-radius: 50px;
-        }
-        .cards {
-            background: #808080;
-        }
-        .div-questions {
-            width:500px;
-            margin: auto
-        }
-        .questions {
-            width: 300px;
-            margin: 1px auto;
-        }
+{% block content1 %}
+<link rel="stylesheet" href="/static/styles/login.css">
+{% endblock %}
 
-        .label_quest {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin: auto;
-            align-items: left;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .login_txt {
-            width: 400px;
-            margin: auto;
-        }
-
-        .center {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-
-<body>
-    <header class="fixed-top">
-        <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="/">
-                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
-                    </span>
-                    <span style="margin-left: 5px;">
-                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
-                        KEFteme</span>
-                </a>
-                {% if user == -1 %}
-                     <div class="collapse navbar-collapse" id="navcol-4">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/signup">Sign up</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/log_in">Log in</a>
-                            </li>
-                        </ul>
-                    </div>
-                {% else %}
-                    <div class="collapse navbar-collapse" id="navcol-5">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/pers_cab">Personal account</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/sign_out">Sign out</a>
-                            </li>
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-        </nav>
-    </header>
-    <br><br><br><br>
+{% block content2 %}
     <section>
         <div class="container">
             <div class="col">
                 <h2 class="text-center"><span style="color: rgb(255, 255, 255);">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4                         6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168
-                         1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4
+                        6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168
+                        1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
                     </svg>
                     Sign up</span><br></h2>
                 <p class="text-center"><span style="color: rgba(255, 255, 255, 0.75);">To register, enter the required data</span><br></p>
@@ -129,57 +21,57 @@
                 <div class="col">
                     <div class="card-body div-questions">
                         <br>
-                        <form class="login_form" method="post">
+                        <form class="login_form" method="post" onsubmit="validateForm(event)">
                             <div class="div-questions">
                                 <label for="name" class="label_quest">Enter your full name</label>
-                                <input class="form-control questions" type="text" placeholder="full name" id="name" name="name">
+                                <input class="form-control questions" type="text" placeholder="full name" id="name" name="name" required>
                             </div>
                             <br>
                             <div class="div-questions">
                                 <label for="login" class="label_quest">Come up with a login</label>
-                                <input class="form-control questions" type="text" placeholder="login" id="login" name="login">
+                                <input class="form-control questions" type="text" placeholder="login" id="login" name="login" required>
                             </div>
                             <br>
                             <div class="div-questions">
                                 <label for="email" class="label_quest">Enter your email</label>
-                                <input class="form-control questions" type="email" placeholder="email" id="email" name="email">
+                                <input class="form-control questions" type="email" placeholder="email" id="email" name="email" required>
                             </div>
                             <br>
                             <div class="div-questions">
                                 <label for="password" class="label_quest">Come up with a password</label>
-                                <input class="form-control questions" type="password"  placeholder="password" id="password" name="password">
+                                <input class="form-control questions" type="password" placeholder="password" id="password" name="password" required>
                             </div>
                             <br>
                             <div class="div-questions">
                                 <label for="rep_password" class="label_quest">Repeat your password</label>
-                                <input class="form-control questions" type="password" placeholder="password" id="rep_password" name="rep_password">
+                                <input class="form-control questions" type="password" placeholder="password" id="rep_password" name="rep_password" required>
                             </div>
                             <br>
                             <div class="form-group label_quest div-questions">
                                 <label class="label_quest">Are you a student or a teacher?</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sex" id="male" value="male">
+                                    <input class="form-check-input" type="radio" name="sex" id="male" value="male" required>
                                     <label class="form-check-label" for="male">
-                                    Student
+                                        Student
                                     </label>
                                 </div>
                                 <div class="form-check div-questions">
-                                    <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                                    <input class="form-check-input" type="radio" name="sex" id="female" value="female" required>
                                     <label class="form-check-label" for="female" style="color: rgba(255, 255, 255, 0.75);">
-                                    Teacher
+                                        Teacher
                                     </label>
                                 </div>
                             </div>
                             <br>
-                                                        <div class="form-check questions">
-                                <input class="form-check-input" type="checkbox" id="formCheck-2">
+                            <div class="form-check questions">
+                                <input class="form-check-input" type="checkbox" id="formCheck-2" required>
                                 <label class="form-check-label" for="formCheck-2">
                                     <span style="color: rgb(255, 255, 255);">I agree to the processing of personal data</span>
                                 </label>
                             </div>
                             <br>
                             <div class="div-questions">
-                                <button class="btn btn-primary d-block div-questions buttons" type="submit" style="margin: 0px auto;width: 300px;" >Sign up</button>
+                                <button class="btn btn-primary d-block div-questions buttons" type="submit" style="margin: 0px auto;width: 300px;">Sign up</button>
                             </div>
                             <br>
                             <div class="div-questions">
@@ -192,15 +84,4 @@
             </div>
         </div>
     </section>
-    <footer class="text-center" style="background:b2b2b2;">
-        <div class="container text-white py-4 py-lg-5">
-            <ul class="list-inline">
-                <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Web design</a></li>
-                <li class="list-inline-item me-4"><a class="link-light text-decoration-none" href="#">Development</a></li>
-                <li class="list-inline-item"><a class="link-light text-decoration-none" href="#">Hosting</a></li>
-            </ul>
-            <p style="color: rgba(255,255,255,0.75)">Copyright © 2024 KEFteme</p>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock %}

@@ -3,67 +3,10 @@
 
 <head>
     <meta charset="utf-8">
+    <title>KEFteme</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>KEFteme</title>
-    <style>
-        body {
-            background-color: #2D2D2D;
-            color: #e0e0e0;
-        }
-        .card {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card-body {
-            background-color: #2b2b2b;
-            border-radius: 10px;
-        }
-        .welcome-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-height: 50vh;
-        }
-        .button-column {
-            display: flex;
-            flex-direction: column;
-            margin-left: 20px;
-        }
-        .buttons {
-            border-radius: 50px;
-        }
-        .cards {
-            background: #808080;
-        }
-        .questions {
-            width: 300px;
-            margin: 1px auto;
-        }
-
-        .label_quest {
-            display: flex;
-            flex-direction: column;
-            width: 300px;
-            margin: auto;
-            align-items: left;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .login_txt {
-            width: 400px;
-            margin: auto;
-        }
-
-        .center {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/styles/task.css">
 </head>
 <body>
     <header class="fixed-top">
@@ -76,7 +19,7 @@
                         <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
                         KEFteme</span>
                 </a>
-                {% if user == -1 %}
+                {% if user == 1 %}
                      <div class="collapse navbar-collapse" id="navcol-4">
                         <ul class="navbar-nav ms-auto">
                             <li class="btn ms-md-2 buttons">
@@ -90,7 +33,7 @@
                             </li>
                         </ul>
                     </div>
-                {% else %}
+                {% elif user == 2 %}
                     <div class="collapse navbar-collapse" id="navcol-5">
                         <ul class="navbar-nav ms-auto">
                             <li class="btn ms-md-2 buttons">
@@ -98,6 +41,29 @@
                             </li>
                             <li class="btn ms-md-2 buttons">
                                 <a class="nav-link" href="/pers_cab">Personal account</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_group">Add group</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/sign_out">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="collapse navbar-collapse" id="navcol-6">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_task">Add task</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_course">Add course</a>
+                            </li>
+                            <li class="btn ms-md-2 buttons">
+                                <a class="nav-link" href="/add_group">Add group</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
                                 <a class="nav-link" href="/sign_out">Sign out</a>
@@ -109,124 +75,178 @@
         </nav>
     </header>
     <br><br><br><br>
-    <div class="container">
+    <div class="px-5">
         <h1 class="text-center">Задачи по темам</h1>
-        <div class="form-group">
-            <label for="topicSelectContainer">Выберите темы:</label>
-            <div id="topicSelectContainer">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="math" id="math">
-                    <label class="form-check-label" for="math">Математика</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="history" id="history">
-                    <label class="form-check-label" for="history">История</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="science" id="science">
-                    <label class="form-check-label" for="science">Наука</label>
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <form id="taskSelectContainer" method="POST">
+                            <h4>Выберите сложность:</h4>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="dif1">
+                                <label class="form-check-label" for="dif1">Легко</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="dif2">
+                                <label class="form-check-label" for="dif2">Средне</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="dif3">
+                                <label class="form-check-label" for="dif3">Сложно</label>
+                            </div>
+                            <h4>Выберите типы заданий:</h4>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type1">
+                                <label class="form-check-label" for="type1">1. Анализ информационных моделей</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type2">
+                                <label class="form-check-label" for="type2">2. Построение таблиц истинности логических выражений</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type3">
+                                <label class="form-check-label" for="type3">3. Поиск информации в реляционных базах данных</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type4">
+                                <label class="form-check-label" for="type4">4. Кодирование и декодирование информации</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type5">
+                                <label class="form-check-label" for="type5">5. Анализ и построение алгоритмов для исполнителей</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type6">
+                                <label class="form-check-label" for="type6">6. Определение результатов работы простейших алгоритмов</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type7">
+                                <label class="form-check-label" for="type7">7. Кодирование и декодирование информации. Передача информации</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type8">
+                                <label class="form-check-label" for="type8">8. Перебор слов и системы счисления</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type9">
+                                <label class="form-check-label" for="type9">9. Работа с таблицами</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type10">
+                                <label class="form-check-label" for="type10">10. Поиск символов в текстовом редакторе</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type11">
+                                <label class="form-check-label" for="type11">11. Вычисление количества информации</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type12">
+                                <label class="form-check-label" for="type12">12. Выполнение алгоритмов для исполнителей</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type13">
+                                <label class="form-check-label" for="type13">13. Организация компьютерных сетей. Адресация</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type14">
+                                <label class="form-check-label" for="type14">14. Кодирование чисел. Системы счисления</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type15">
+                                <label class="form-check-label" for="type15">15. Преобразование логических выражений</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type16">
+                                <label class="form-check-label" for="type16">16. Рекурсивные алгоритмы</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type17">
+                                <label class="form-check-label" for="type17">17. Обработки числовой последовательности</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type18">
+                                <label class="form-check-label" for="type18">18. Робот сборщик-монет</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type19">
+                                <label class="form-check-label" for="type19">19. Выигрышная стратегия. Задание 1</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type20">
+                                <label class="form-check-label" for="type20">20. Выигрышная стратегия. Задание 2</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type21">
+                                <label class="form-check-label" for="type21">21. Выигрышная стратегия. Задание 3</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type22">
+                                <label class="form-check-label" for="type22">22. Многопроцессорные системы</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type23">
+                                <label class="form-check-label" for="type23">23. Оператор присваивания и ветвления. Перебор вариантов, построение дерева</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type24">
+                                <label class="form-check-label" for="type24">24. Обработка символьных строк</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type25">
+                                <label class="form-check-label" for="type25">25. Обработка целочисленной информации</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type26">
+                                <label class="form-check-label" for="type26">26. Обработка целочисленной информации</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type27">
+                                <label class="form-check-label" for="type27">27. Программирование</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Найти задачи</button>
+                    </form>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group hidden" id="subtopicContainer">
-            <h5>Выберите подтемы:</h5>
-            <div id="subtopics"></div>
-        </div>
-        <br><br><br><br><br>
-        <div class="question-container hidden" id="questionContainer">
-            <h3 id="questionText"></h3>
-            <input type="text" class="form-control" style="width:250px" id="answerInput" placeholder="Ваш ответ">
-            <button class="btn btn-primary mt-2" style="width:250px" id="showAnswerButton">Показать правильный ответ</button>
-            <div id="correctAnswer" class="mt-2 hidden"></div>
-        </div>
-
-
-        <button class="btn btn-secondary mt-4" id="startTestButton" disabled>Начать тест</button>
-    </div>
-    <script>
-        const questions = {
-            math: {
-                question: "Сколько будет 2 + 2?",
-                answer: "4",
-                subtopics: {
-                    "teoria_chisel": "Теория чисел",
-                    "kombinatorika": "Комбинаторика",
-                    "arifmetika": "Арифметика",
-                    "grafy": "Графы"
-                }
-            },
-            history: {
-                question: "Кто был первым президентом США?",
-                answer: "Джордж Вашингтон",
-                subtopics: {
-                    "drevnyaya_istoriy": "Древняя история",
-                    "novaya_istoriy": "Новая история",
-                    "mir_voyny": "Мировые войны"
-                }
-            },
-            science: {
-                question: "Какой химический элемент имеет символ 'O'?",
-                answer: "Кислород",
-                subtopics: {
-                    "biologiya": "Биология",
-                    "khimiya": "Химия",
-                    "fizika": "Физика"
-                }
-            }
-        };
-
-        const topicSelectContainer = document.getElementById('topicSelectContainer');
-        const subtopicContainer = document.getElementById('subtopicContainer');
-        const subtopics = document.getElementById('subtopics');
-        const questionContainer = document.getElementById('questionContainer');
-        const questionText = document.getElementById('questionText');
-        const answerInput = document.getElementById('answerInput');
-        const showAnswerButton = document.getElementById('showAnswerButton');
-        const correctAnswer = document.getElementById('correctAnswer');
-        const startTestButton = document.getElementById('startTestButton');
-
-        topicSelectContainer.addEventListener('change', function() {
-            const selectedTopics = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(el => el.value);
-            subtopics.innerHTML = '';            if (selectedTopics.length > 0) {
-                selectedTopics.forEach(topic => {
-                    for (const [key, value] of Object.entries(questions[topic].subtopics)) {
-                        subtopics.innerHTML += `
-                            <div class="form-check subtopic">
-                                <input class="form-check-input" type="checkbox" value="${key}" id="${key}">
-                                <label class="form-check-label" for="${key}">${value}</label>
-                            </div>`;
+            <div class="col-md-8">
+                {% if(n > 0) %}
+                <script>
+                    function showAnswer(ind){
+                        var btn = document.getElementById("show-answer" + ind);
+                        var modal = document.getElementById("myModal" + ind);
+                        modal.style.display = "block";
+                        btn.innerText = "Закрыть ответ";
                     }
-                });
-                subtopicContainer.classList.remove('hidden');
-                startTestButton.disabled = false;
-                questionContainer.classList.add('hidden');
-            } else {
-                subtopicContainer.classList.add('hidden');
-                startTestButton.disabled = true;
-                questionContainer.classList.add('hidden');
-            }
-        });
-
-
-        startTestButton.addEventListener('click', function() {
-            const selectedTopics = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(el => el.value);
-            if (selectedTopics.length > 0) {
-                const firstSelectedTopic = selectedTopics[0]; // Берем первый выбранный предмет
-                questionText.textContent = questions[firstSelectedTopic].question;
-                questionContainer.classList.remove('hidden');
-                correctAnswer.classList.add('hidden');
-            }
-        });
-        showAnswerButton.addEventListener('click', function() {
-            const selectedTopics = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(el => el.value);
-            if (selectedTopics.length > 0) {
-                const firstSelectedTopic = selectedTopics[0]; // Берем первый выбранный предмет
-                correctAnswer.textContent = "Правильный ответ: " + questions[firstSelectedTopic].answer;
-                correctAnswer.classList.remove('hidden');
-            }
-        });
-    </script>
+                    function closeAnswer(ind){
+                        var btn = document.getElementById("show-answer" + ind);
+                        var modal = document.getElementById("myModal" + ind);
+                        modal.style.display = "none";
+                        btn.innerText = "Открыть ответ";
+                    }
+                </script>
+                {% for i in range(n) %}
+                <div class="tablo">
+                    <h4>Задача {{i+1}}</h4>
+                    <p style="text-align: justify; line-height: 28px">{{tasks[i][0]}}
+                    </p>
+                    <div id="myModal{{ i }}" class="modal">
+                      <div class="modal-content">
+                          <button type="button" class="btn-close" onclick="closeAnswer({{i}})"></button>
+                          <h4>Правильный ответ: {{tasks[i][1]}}</h4>
+                          <p>{{tasks[i][2]}}</p>
+                      </div>
+                    </div>
+                    <button class="button" id="show-answer{{ i }}" onclick="showAnswer({{i}})">Открыть ответ</button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% if(n == 0) %}
+                    <h4>Выберите и сложности, и типы заданий в форме, чтобы мы могли подобрать подходящие задачи!</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
     <footer class="text-center" style="background: #2D2D2D;">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
