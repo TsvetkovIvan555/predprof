@@ -7,7 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/styles/task.css">
+    <style>
+        /* Стили для прямоугольников с заданиями */
+        .task-box {
+            background-color: #2b2b2b; /* Цвет фона */
+            padding: 15px; /* Отступы */
+            border-radius: 5px; /* Закругленные углы */
+            margin-bottom: 10px; /* Отступ снизу */
+            color: white; /* Цвет текста */
+        }
+        .form-check {
+            margin-bottom: 10px; /* Отступ снизу для чекбоксов */
+        }
+    </style>
 </head>
+
 <body>
     <header class="fixed-top">
         <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
@@ -16,63 +30,63 @@
                     <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
                     </span>
                     <span style="margin-left: 5px;">
-                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard" />
                         KEFteme</span>
                 </a>
-                {% if users_status == 1 %}
-                     <div class="collapse navbar-collapse" id="navcol-4">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/signup">Sign up</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/log_in">Log in</a>
-                            </li>
-                        </ul>
-                    </div>
-                {% elif users_status == 2 %}
-                    <div class="collapse navbar-collapse" id="navcol-5">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/pers_cab">Personal account</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_group">Add group</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/sign_out">Sign out</a>
-                            </li>
-                        </ul>
-                    </div>
+                {% if user == 1 %}
+                <div class="collapse navbar-collapse" id="navcol-4">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/signup">Sign up</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/log_in">Log in</a>
+                        </li>
+                    </ul>
+                </div>
+                {% elif user == 2 %}
+                <div class="collapse navbar-collapse" id="navcol-5">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/pers_cab">Personal account</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_group">Add group</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/sign_out">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
                 {% else %}
-                    <div class="collapse navbar-collapse" id="navcol-6">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_task">Add task</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_course">Add course</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_group">Add group</a>
-                            </li>
-                            <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/sign_out">Sign out</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="collapse navbar-collapse" id="navcol-6">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_task">Add task</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_course">Add course</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_group">Add group</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/sign_out">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
                 {% endif %}
             </div>
-        </nav>
+                    </nav>
     </header>
     <br><br><br><br>
     <div class="px-5">
@@ -82,142 +96,146 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <form id="taskSelectContainer" method="POST">
+                        <div class="task-box">
                             <h4>Выберите сложность:</h4>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dif1">
+                                <input class="form-check-input" type="checkbox" name="dif1" id="dif1">
                                 <label class="form-check-label" for="dif1">Легко</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dif2">
+                                <input class="form-check-input" type="checkbox" name="dif2" id="dif2">
                                 <label class="form-check-label" for="dif2">Средне</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="dif3">
+                                <input class="form-check-input" type="checkbox" name="dif3" id="dif3">
                                 <label class="form-check-label" for="dif3">Сложно</label>
                             </div>
+                        </div>
+                        <div class="task-box">
                             <h4>Выберите типы заданий:</h4>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type1">
+                                <input class="form-check-input" type="checkbox" name="type1" id="type1">
                                 <label class="form-check-label" for="type1">1. Анализ информационных моделей</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type2">
+                                <input class="form-check-input" type="checkbox" name="type2" id="type2">
                                 <label class="form-check-label" for="type2">2. Построение таблиц истинности логических выражений</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type3">
+                                <input class="form-check-input" type="checkbox" name="type3" id="type3">
                                 <label class="form-check-label" for="type3">3. Поиск информации в реляционных базах данных</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type4">
+                                <input class="form-check-input" type="checkbox" name="type4" id="type4">
                                 <label class="form-check-label" for="type4">4. Кодирование и декодирование информации</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type5">
+                                <input class="form-check-input" type="checkbox" name="type5" id="type5">
                                 <label class="form-check-label" for="type5">5. Анализ и построение алгоритмов для исполнителей</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type6">
+                                <input class="form-check-input" type="checkbox" name="type6" id="type6">
                                 <label class="form-check-label" for="type6">6. Определение результатов работы простейших алгоритмов</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type7">
+                                <input class="form-check-input" type="checkbox" name="type7" id="type7">
                                 <label class="form-check-label" for="type7">7. Кодирование и декодирование информации. Передача информации</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type8">
+                                <input class="form-check-input" type="checkbox" name="type8" id="type8">
                                 <label class="form-check-label" for="type8">8. Перебор слов и системы счисления</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type9">
+                                                                <input class="form-check-input" type="checkbox" name="type9" id="type9">
                                 <label class="form-check-label" for="type9">9. Работа с таблицами</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type10">
+                                <input class="form-check-input" type="checkbox" name="type10" id="type10">
                                 <label class="form-check-label" for="type10">10. Поиск символов в текстовом редакторе</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type11">
+                                <input class="form-check-input" type="checkbox" name="type11" id="type11">
                                 <label class="form-check-label" for="type11">11. Вычисление количества информации</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type12">
+                                <input class="form-check-input" type="checkbox" name="type12" id="type12">
                                 <label class="form-check-label" for="type12">12. Выполнение алгоритмов для исполнителей</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type13">
+                                <input class="form-check-input" type="checkbox" name="type13" id="type13">
                                 <label class="form-check-label" for="type13">13. Организация компьютерных сетей. Адресация</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type14">
+                                <input class="form-check-input" type="checkbox" name="type14" id="type14">
                                 <label class="form-check-label" for="type14">14. Кодирование чисел. Системы счисления</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type15">
+                                <input class="form-check-input" type="checkbox" name="type15" id="type15">
                                 <label class="form-check-label" for="type15">15. Преобразование логических выражений</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type16">
+                                <input class="form-check-input" type="checkbox" name="type16" id="type16">
                                 <label class="form-check-label" for="type16">16. Рекурсивные алгоритмы</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type17">
+                                <input class="form-check-input" type="checkbox" name="type17" id="type17">
                                 <label class="form-check-label" for="type17">17. Обработки числовой последовательности</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type18">
+                                <input class="form-check-input" type="checkbox" name="type18" id="type18">
                                 <label class="form-check-label" for="type18">18. Робот сборщик-монет</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type19">
+                                <input class="form-check-input" type="checkbox" name="type19" id="type19">
                                 <label class="form-check-label" for="type19">19. Выигрышная стратегия. Задание 1</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type20">
+                                <input class="form-check-input" type="checkbox" name="type20" id="type20">
                                 <label class="form-check-label" for="type20">20. Выигрышная стратегия. Задание 2</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type21">
+                                <input class="form-check-input" type="checkbox" name="type21" id="type21">
                                 <label class="form-check-label" for="type21">21. Выигрышная стратегия. Задание 3</label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type22">
+                                                        <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="type22" id="type22">
                                 <label class="form-check-label" for="type22">22. Многопроцессорные системы</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type23">
+                                <input class="form-check-input" type="checkbox" name="type23" id="type23">
                                 <label class="form-check-label" for="type23">23. Оператор присваивания и ветвления. Перебор вариантов, построение дерева</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type24">
+                                <input class="form-check-input" type="checkbox" name="type24" id="type24">
                                 <label class="form-check-label" for="type24">24. Обработка символьных строк</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type25">
+                                <input class="form-check-input" type="checkbox" name="type25" id="type25">
                                 <label class="form-check-label" for="type25">25. Обработка целочисленной информации</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type26">
+                                <input class="form-check-input" type="checkbox" name="type26" id="type26">
                                 <label class="form-check-label" for="type26">26. Обработка целочисленной информации</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="type27">
+                                <input class="form-check-input" type="checkbox" name="type27" id="type27">
                                 <label class="form-check-label" for="type27">27. Программирование</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Найти задачи</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Найти задачи</button>
                     </form>
                 </div>
             </div>
             <div class="col-md-8">
                 {% if(n > 0) %}
                 <script>
-                    function showAnswer(ind){
+                    function showAnswer(ind) {
                         var btn = document.getElementById("show-answer" + ind);
                         var modal = document.getElementById("myModal" + ind);
                         modal.style.display = "block";
                         btn.innerText = "Закрыть ответ";
                     }
-                    function closeAnswer(ind){
+                    function closeAnswer(ind) {
                         var btn = document.getElementById("show-answer" + ind);
                         var modal = document.getElementById("myModal" + ind);
                         modal.style.display = "none";
@@ -227,26 +245,24 @@
                 {% for i in range(n) %}
                 <div class="tablo">
                     <h4>Задача {{i+1}}</h4>
-                    <p style="text-align: justify; line-height: 28px">{{tasks[i][0]}}
-                    </p>
+                    <p style="text-align: justify; line-height: 28px">{{tasks[i][0]}}</p>
                     <div id="myModal{{ i }}" class="modal">
-                      <div class="modal-content">
-                          <button type="button" class="btn-close" onclick="closeAnswer({{i}})"></button>
-                          <h4>Правильный ответ: {{tasks[i][1]}}</h4>
-                          <p>{{tasks[i][2]}}</p>
-                      </div>
+                        <div class="modal-content">
+                            <button type="button" class="btn-close" onclick="closeAnswer({{i}})"></button>
+                            <h4>Правильный ответ: {{tasks[i][1]}}</h4>
+                            <p>{{tasks[i][2]}}</p>
+                        </div>
                     </div>
                     <button class="button" id="show-answer{{ i }}" onclick="showAnswer({{i}})">Открыть ответ</button>
                 </div>
                 {% endfor %}
                 {% endif %}
                 {% if(n == 0) %}
-                    <h4>Выберите и сложности, и типы заданий в форме, чтобы мы могли подобрать подходящие задачи!</h4>
+                <h4>Выберите и сложности, и типы заданий в форме, чтобы мы могли подобрать подходящие задачи!</h4>
                 {% endif %}
             </div>
         </div>
     </div>
-    
     <footer class="text-center" style="background: #2D2D2D;">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
@@ -257,6 +273,5 @@
             <p style="color: rgba(255,255,255,0.75)">Copyright © 2024 KEFteme</p>
         </div>
     </footer>
-    <!-- хуй -->
 </body>
 </html>
