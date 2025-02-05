@@ -8,13 +8,22 @@ def make_number(ind):
     else:
         return str(ind)
 
-for i in range(1000):
-    name = "task_" + make_number(i) + ".txt"
+index = []
+for i in range(3):
+    p = []
+    for j in range(27):
+        p.append([])
+    index.append(p)
+
+for i in range(20):
+    a, b, c = random.randint(1000000000, 10000000000), random.randint(1, 27), random.randint(1, 3)
+    name = "task_" + str(a) + ".txt"
     f = open(name, 'w', encoding='utf-8')
-    a, b, c = random.randint(100000000000, 1000000000000), random.randint(1, 28), random.randint(1, 4)
-    f.write(str(a) + "\n")
     f.write(str(b) + "\n")
     f.write(str(c) + "\n")
     f.write("Страшный текст очень сложной задачи\n")
     f.write("Страшный ответ\n")
+    index[c - 1][b - 1].append(a)
     f.close()
+
+print(index)

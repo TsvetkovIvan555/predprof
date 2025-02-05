@@ -113,32 +113,32 @@ def check(data, cnt_users):
             return False
     return True
 
-def generate_task(data, tasks_cnt):
+def generate_task(data, tasks_ind):
     gen_tasks = []
     index = []
     for i in range(1, 28):
         if data.get("type" + str(i)):
-            index.append(i)
+            index.append(i - 1)
     diff = []
     for i in range(1, 4):
         if data.get("dif" + str(i)):
-            diff.append(i)
+            diff.append(i - 1)
     gen_n = 0
-    for i in index:
-        for j in diff:
-            for ind in range(1, tasks_cnt):
-                name = "sources/tasks/task_" + str(make_cnt(ind)) + ".txt"
+    for i in diff:
+        for j in index:
+            for ind in tasks_ind[i][j]:
+                name = "sources/tasks/task_" + str(ind) + ".txt"
                 file = open(name, mode="r", encoding="UTF-8")
-                task_index = int(file.readline().replace("\n", ""))
                 task_number = int(file.readline().replace("\n", ""))
                 task_diff = int(file.readline().replace("\n", ""))
                 task_text = file.readline()
                 task_ans = file.readline()
+                task_index = ind
                 file.close()
-                if i == task_number and j == task_diff:
-                    gen_n += 1
-                    a = [task_number, task_index, task_text, task_ans]
-                    gen_tasks.append(a)
+
+                gen_n += 1
+                a = [task_number, task_index, task_text, task_ans]
+                gen_tasks.append(a)
     ans = [gen_n, gen_tasks]
     return ans
 
@@ -201,8 +201,8 @@ def get_results_for_test(data, random_questions):
 
 diff = {"Легко" : "1", "Средне" : "2", "Сложно" : "3"}
 
-def make_new_task(data, cnt_tasks):
-    name = "sources/tasks/task_" + str(make_cnt(cnt_tasks)) + ".txt"
+def make_new_task(data):
+    name = "sources/tasks/task_" + str(data["index"]) + ".txt"
     file = open(name, mode="w", encoding="UTF-8")
     file.write(data["index"] + "\n")
     file.write(data["number"] + "\n")
@@ -210,6 +210,7 @@ def make_new_task(data, cnt_tasks):
     file.write(data["text"] + "\n")
     file.write(data["answer"] + "\n")
     file.close()
+    return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(data["index"])]
 
 if __name__ == "__main__":
     app.run(port=8080, host="127.0.0.1")

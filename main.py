@@ -6,7 +6,7 @@ app = Flask(__name__)
 #==================Global_vars=====================
 
 id_user_now = -1
-tasks_cnt = 997
+tasks_ind = [[[], [1546087504], [], [], [], [], [], [], [2916180634, 7210576563], [], [], [], [9624466323], [], [], [], [], [], [], [6114071314], [5396808959], [], [], [], [], [7738091925], []], [[8107538073], [], [], [8065011922], [], [6900636397], [], [], [], [], [], [3865783076], [], [], [], [], [], [], [], [], [1289154757], [], [], [3227319211], [], [4010654269, 6465017951], []], [[], [], [], [], [], [], [], [4509329672], [], [], [], [], [], [], [], [9234051873], [], [2816686148], [3004432945], [], [], [], [], [2882934399], [], [], []]]
 tests_cnt = 0
 while os.path.isfile("sources/tests/test_" + "0"*(9-len(str(tests_cnt))) + str(tests_cnt) + ".txt"):
     tests_cnt += 1
@@ -83,7 +83,7 @@ def task():
     gen_tasks = []
     if request.method == 'POST':
         data = request.form
-        a = back.generate_task(data, tasks_cnt)
+        a = back.generate_task(data, tasks_ind)
         gen_n, gen_tasks = a[0], a[1]
     return render_template("task.html", n = gen_n, tasks = gen_tasks, users_status = status)
 #===============================================================================================
@@ -119,9 +119,8 @@ def add_task():
     if request.method == 'GET':
         return render_template("add_task.html", users_status = status)
     data = request.form
-    global tasks_cnt
-    tasks_cnt += 1
-    back.make_new_task(data, tasks_cnt)
+    a = back.make_new_task(data)
+    tasks_ind[a[0]][a[1]].append(a[2])
     return render_template("home_page.html", users_status = status)
 
 @app.route('/lec1')
@@ -183,17 +182,12 @@ def add_group():
         tests_size = 0
         return render_template("group1.html", users_status = status, tests = tests, tasks = tasks, studens = studens, results = results, overall_results = overall_results, overall_group_completion = overall_group_completion, tests_size = tests_size)
 
-@app.route('/group1')
-def group1():
+@app.route('/group')
+def group(index):
     status = back.get_users_status(id_user_now)
-    tests = []
-    tasks = []
-    studens = []
-    results = []
-    overall_results = []
-    overall_group_completion = 1
-    tests_size = 0
-    return render_template("group1.html", users_status = status, tests = tests, tasks = tasks, studens = studens, results = results, overall_results = overall_results, overall_group_completion = overall_group_completion, tests_size = tests_size)
+    tasks = [{"title" : "Title", "due_date" : "28.04.2008", "description" : "haosuvn sud hupsdf ggvudgvn sdhcvghsdghsdhpcvchmsdhmfhmefvchopucfgdsphoucfgsdcdfgscfgsohmps"}]
+    lectures = []
+    return render_template("group1.html", users_status = status, tasks = tasks, lectures = lectures)
 
 #=================================================================================================
 
