@@ -2,10 +2,23 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KEFteme</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/styles/test.css">
+    <style>
+        /* Стили для прямоугольников с заданиями */
+        .task-box {
+            background-color: #2b2b2b; /* Цвет фона */
+            padding: 15px; /* Отступы */
+            border-radius: 5px; /* Закругленные углы */
+            margin-bottom: 10px; /* Отступ снизу */
+            color: white; /* Цвет текста */
+        }
+        .form-check {
+            margin-bottom: 10px; /* Отступ снизу для чекбоксов */
+        }
+    </style>
 </head>
 <body>
     <header class="fixed-top">
@@ -100,21 +113,39 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <form method="UPDATE">
+                <form method="GET">
                     <button type="submit" class="btn btn-primary">Сбросить</button>
                 </form>
             </div>
             {% endif %}
             {% if not (results)%}
-            <form id="quizForm" method="POST">
-                {% for index, question in enumerate(questions) %}
-                <div class="mb-3">
-                    <label for="answer{{ index }}" class="form-label">{{ question.text }}</label>
-                    <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
-                </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary">Сдать тест</button>
+            <form id="notRandom" method="POST">
+                <label for="specific-test-id" class="form-label">Пройти конкретный тест</label>
+                <input type="text" id="specific-test-id" name="specific-test-id" class="form-control" style="width:300px" required>
+                <button type="submit" class="btn btn-primary">Найти</button>
             </form>
+            <form method="GET">
+                <button type="submit" class="btn btn-primary">Случайный тест</button>
+            </form>
+            <a class="btn btn-primary buttons" href="/add_test">Создать тест</a>
+            {% if test_found == -1 %}
+                <h6 style = "color: red; text-align: center">Введите корректное ID!</h6>
+            {% endif %}
+            <div class="px-5">
+                <div class="row">
+                    <div class="col-md-8 task-box">
+                        <form id="quizForm" method="POST">
+                            {% for index, question in enumerate(questions) %}
+                            <div class="tablo">
+                                <label for="answer{{ index }}" class="form-label">{{ question.text }}</label>
+                                <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
+                            </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">Сдать тест</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             {% endif %}
         </section>
     </main>

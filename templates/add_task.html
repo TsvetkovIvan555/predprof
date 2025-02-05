@@ -74,14 +74,14 @@
 
     <main class="container">
         <h1 class="text-center mb-4">Добавление задачи</h1>
-        <form action="/backend" method="POST">
+        <form method="POST">
             <div class="mb-3">
-                <label for="taskIndex" class="form-label">Индекс задачи</label>
-                <input type="text" class="form-control" id="taskIndex" name="taskIndex" required>
+                <label for="index" class="form-label">Индекс задачи</label>
+                <input type="text" class="form-control" id="index" name="index" required>
             </div>
             <div class="mb-3">
-                <label for="examNumber" class="form-label">Номер задания ЕГЭ</label>
-                <input type="text" class="form-control" id="examNumber" name="examNumber" required>
+                <label for="number" class="form-label">Номер задания ЕГЭ</label>
+                <input type="text" class="form-control" id="number" name="number" required>
             </div>
             <div class="mb-3">
                 <label for="difficulty" class="form-label">Сложность задачи</label>
@@ -93,12 +93,12 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="taskText" class="form-label">Текст задачи</label>
-                <textarea class="form-control" id="taskText" name="taskText" rows="4" required></textarea>
+                <label for="text" class="form-label">Текст задачи</label>
+                <textarea class="form-control" id="text" name="text" rows="4" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="taskAnswer" class="form-label">Ответ к задаче</label>
-                <input type="text" class="form-control" id="taskAnswer" name="taskAnswer" required>
+                <label for="answer" class="form-label">Ответ к задаче</label>
+                <input type="text" class="form-control" id="answer" name="answer" required>
             </div>
             <button type="submit" class="btn btn-primary submit-button">Добавить задачу</button>
         </form>

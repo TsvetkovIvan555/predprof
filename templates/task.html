@@ -33,7 +33,7 @@
                         <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard" />
                         KEFteme</span>
                 </a>
-                {% if user == 1 %}
+                {% if users_status == 1 %}
                 <div class="collapse navbar-collapse" id="navcol-4">
                     <ul class="navbar-nav ms-auto">
                         <li class="btn ms-md-2 buttons">
@@ -47,7 +47,7 @@
                         </li>
                     </ul>
                 </div>
-                {% elif user == 2 %}
+                {% elif users_status == 2 %}
                 <div class="collapse navbar-collapse" id="navcol-5">
                     <ul class="navbar-nav ms-auto">
                         <li class="btn ms-md-2 buttons">
@@ -86,7 +86,7 @@
                 </div>
                 {% endif %}
             </div>
-                    </nav>
+        </nav>
     </header>
     <br><br><br><br>
     <div class="px-5">
@@ -239,18 +239,17 @@
                         var btn = document.getElementById("show-answer" + ind);
                         var modal = document.getElementById("myModal" + ind);
                         modal.style.display = "none";
-                        btn.innerText = "Открыть ответ";
+                        btn.innerText = "Закрыть ответ";
                     }
                 </script>
                 {% for i in range(n) %}
                 <div class="tablo">
-                    <h4>Задача {{i+1}}</h4>
-                    <p style="text-align: justify; line-height: 28px">{{tasks[i][0]}}</p>
+                    <h4>Задача №{{tasks[i][0]}} Индекс: {{tasks[i][1]}}</h4>
+                    <p style="text-align: justify; line-height: 28px">{{tasks[i][2]}}</p>
                     <div id="myModal{{ i }}" class="modal">
                         <div class="modal-content">
                             <button type="button" class="btn-close" onclick="closeAnswer({{i}})"></button>
-                            <h4>Правильный ответ: {{tasks[i][1]}}</h4>
-                            <p>{{tasks[i][2]}}</p>
+                            <h4>Правильный ответ: {{tasks[i][3]}}</h4>
                         </div>
                     </div>
                     <button class="button" id="show-answer{{ i }}" onclick="showAnswer({{i}})">Открыть ответ</button>
