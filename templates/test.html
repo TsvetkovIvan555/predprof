@@ -139,6 +139,7 @@
                             <div class="tablo">
                                 <label for="answer{{ index }}" class="form-label">{{ question.text }}</label>
                                 <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
+                                <input type="text" id="correct_answer{{ index }}"  name="correct_answer{{ index }}" value="{{ question.correct_answer }}" class="form-control" style="visibility: hidden;">
                             </div>
                             {% endfor %}
                             <button type="submit" class="btn btn-primary">Сдать тест</button>

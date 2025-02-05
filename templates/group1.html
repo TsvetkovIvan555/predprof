@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/static/styles/test.css">
     <style>
         /* Стили для карточек */
+        body {
+            padding-top: 100px;
+        }
         .task-box, .lecture-box {
             background-color: #2b2b2b; /* Цвет фона */
             padding: 15px; /* Отступы */
@@ -23,6 +26,22 @@
         function showSection(section) {
             document.getElementById('tests-section').style.display = section === 'tests' ? 'block' : 'none';
             document.getElementById('lectures-section').style.display = section === 'lectures' ? 'block' : 'none';
+
+            // Изменение стилей кнопок
+            const testsButton = document.getElementById('tests-btn');
+            const lecturesButton = document.getElementById('lectures-btn');
+
+            if (section === 'tests') {
+                testsButton.classList.remove('btn-secondary');
+                testsButton.classList.add('btn-primary');
+                lecturesButton.classList.remove('btn-primary');
+                lecturesButton.classList.add('btn-secondary');
+            } else {
+                lecturesButton.classList.remove('btn-secondary');
+                lecturesButton.classList.add('btn-primary');
+                testsButton.classList.remove('btn-primary');
+                testsButton.classList.add('btn-secondary');
+            }
         }
     </script>
 </head>
@@ -31,20 +50,72 @@
         <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="/">
-                    <span style="margin-left: 5px;">
-                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard"/>
-                        KEFteme
+                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
                     </span>
+                    <span style="margin-left: 5px;">
+                        <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/50/EBEBEB/motarboard.png" alt="motarboard" />
+                        KEFteme</span>
                 </a>
-
+                {% if users_status == 1 %}
+                <div class="collapse navbar-collapse" id="navcol-4">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/signup">Sign up</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/log_in">Log in</a>
+                        </li>
+                    </ul>
+                </div>
+                {% elif users_status == 2 %}
+                <div class="collapse navbar-collapse" id="navcol-5">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/pers_cab">Personal account</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_group">Add group</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/sign_out">Sign out</a>
+                        </li>
+                        </ul>
+                </div>
+                {% else %}
+                <div class="collapse navbar-collapse" id="navcol-6">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_task">Add task</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_course">Add course</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/add_group">Add group</a>
+                        </li>
+                        <li class="btn ms-md-2 buttons">
+                            <a class="nav-link" href="/sign_out">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </nav>
     </header>
 
-    <main class="container my-5" style="padding-top: 80px;">
+    <main class="container my-5">
         <div class="ms-auto">
-            <button class="btn btn-primary" onclick="showSection('tests')">Тесты</button>
-            <button class="btn btn-secondary" onclick="showSection('lectures')">Лекции</button>
+            <button id="tests-btn" class="btn btn-primary" onclick="showSection('tests')">Тесты</button>
+            <button id="lectures-btn" class="btn btn-secondary" onclick="showSection('lectures')">Лекции</button>
         </div>
         <section id="tests-section" style="display: block;">
             <h2 class="text-center">Задания</h2>
@@ -55,25 +126,24 @@
                         <h5 class="task-title">{{ task["title"] }}</h5>
                         <p>Срок сдачи: {{ task["due_date"] }}</p>
                         <p>{{ task["description"] }}</p>
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ task.test_link }}" class="btn btn-primary">Пройти задание</a>
-                            <a href="{{ task.results_link }}" class="btn btn-secondary">Посмотреть результаты</a>
+                        <div>
+                            <a href="{{ task['test_link'] }}" class="btn btn-primary">Пройти задание</a>
+                            <a href="{{ task['results_link'] }}" class="btn btn-secondary">Посмотреть результаты</a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </section>
-
         <section id="lectures-section" style="display: none;">
             <h2 class="text-center">Лекции</h2>
             <div class="row">
                 {% for lecture in lectures %}
                 <div class="col-md-12">
                     <div class="lecture-box">
-                        <h5 class="lecture-title">{{ lecture.title }}</h5>
-                        <p>{{ lecture.description }}</p>
-                        <a href="{{ lecture.download_link }}" class="btn btn-success">Скачать лекцию</a>
+                        <h5 class="lecture-title">{{ lecture["title"] }}</h5>
+                        <p>{{ lecture["description"]}}</p>
+                        <a href="{{ lecture['link'] }}" class="btn btn-success">Открыть лекцию</a>
                     </div>
                 </div>
                 {% endfor %}

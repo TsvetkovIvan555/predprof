@@ -142,75 +142,89 @@ def generate_task(data, tasks_ind):
     ans = [gen_n, gen_tasks]
     return ans
 
-def generate_random_questions_for_test(tasks_cnt):
+def generate_random_questions_for_test(tasks_ind):
     random_questions = []
-    for i in range(0, 27):
+    for i in range(0, 26):
         j = random.randint(0, 2)
-        gen_text_file = "sources/tasks/"
-        z = random.randint(0, tasks_cnt[i][j-1]-1)
-        if i <= 9:
-            gen_text_file += "task_0" + str(i)
-        else:
-            gen_text_file += "task_" + str(i)
-        gen_text_file += str(j)
-        gen_text_file += (6 - len(str(z)))*"0" + str(z) + ".txt"
-        f = open(gen_text_file, 'r')
-        random_questions.append({'text': str(i+1) + ". " + f.readline().rstrip(), 'correct_answer': f.readline().rstrip()})
-        f.close()
+        if(len(tasks_ind[j][i]) != 0):
+            z = random.randint(0, len(tasks_ind[j][i])-1)
+            d = unpack_task(tasks_ind[j][i][z])
+            random_questions.append({'text': d['problem'].rstrip(), 'correct_answer': d['answer'].rstrip()})
     return random_questions
 
-def get_results_for_test(data, random_questions):
-    is_found = 1
+
+def unpack_task(id):
+    name = "sources/tasks/task_" + str(id) + ".txt"
+    f = open(name, mode="r", encoding="UTF-8")
+    result = dict()
+    result['kim'] = f.readline().rstrip()
+    result['dif'] = f.readline().rstrip()
+    result['problem'] = f.readline().rstrip()
+    result['answer'] = f.readline().rstrip()
+    f.close()
+    return result
+
+
+def generate_specific_test(test_id):
+    name = "sources/tests/test_" + str(test_id) + ".txt"
+    f = open(name, mode="r", encoding="UTF-8")
+    task_id = f.readline().rstrip()
+    questions = []
+    while (task_id):
+        d = unpack_task(task_id)
+        questions.append({'text': d['problem'], 'correct_answer': d['answer']})
+        task_id = f.readline().rstrip()
+    f.close()
+    return questions
+
+
+def check_test(data):
+    user_answers = []
+    correct_answers = []
+    i = 0
+
+    while data.get('answer' + str(i)) != None:
+        user_answers.append(data.get('answer' + str(i)))
+        correct_answers.append(data.get('correct_answer' + str(i)))
+        i += 1
+
     results = []
-    if data.get('specific-test-id'):
-        test_id = data.get('specific-test-id')
-        if os.path.isfile("sources/tests/test_" + "0" * (9 - len(str(test_id))) + str(test_id) + ".txt"):
-            f = open("sources/tests/test_" + "0" * (9 - len(str(test_id))) + str(test_id) + ".txt", 'r')
-            i = 0
-            random_questions = []
-            for line in f:
-                task_id = line.rstrip()
-                f_task = open("sources/tasks/task_" + task_id + ".txt", 'r')
-                random_questions.append({'text': str(i + 1) + ". " + f_task.readline().rstrip(),
-                                         'correct_answer': f_task.readline().rstrip()})
-                i += 1
-                f_task.close()
-            f.close()
-            is_found = 1
-        else:
-            is_found = -1
-    else:
-        user_answers = []
-        i = 0
-        while data.get('answer' + str(i)) != None:
-            user_answers.append(data.get('answer' + str(i)).lower())
-            i += 1
 
-        correct_answers = [q['correct_answer'] for q in random_questions]
+    for user_answer, correct_answer in zip(user_answers, correct_answers):
+        result = {
+            'user_answer': str(user_answer),
+            'correct_answer': str(correct_answer),
+            'is_correct': str(user_answer) == str(correct_answer)
+        }
+        results.append(result)
 
-        results.clear()
-
-        for user_answer, correct_answer in zip(user_answers, correct_answers):
-            result = {
-                'user_answer': str(user_answer),
-                'correct_answer': str(correct_answer),
-                'is_correct': str(user_answer) == str(correct_answer)
-            }
-            results.append(result)
-    return [results, is_found]
+    return results
 
 diff = {"Легко" : "1", "Средне" : "2", "Сложно" : "3"}
 
 def make_new_task(data):
     name = "sources/tasks/task_" + str(data["index"]) + ".txt"
     file = open(name, mode="w", encoding="UTF-8")
-    file.write(data["index"] + "\n")
     file.write(data["number"] + "\n")
     file.write(diff[data["difficulty"]] + "\n")
     file.write(data["text"] + "\n")
     file.write(data["answer"] + "\n")
     file.close()
     return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(data["index"])]
+
+def make_statistics():
+    return [3, [{"name": "Lev", "results": [1, 100, 4], "final_score": 66},
+                {"name": "Misha", "results": [-1, 10, 48], "final_score": 0},
+                {"name": "Albert", "results": [1, 100, 40], "final_score": 100}], [33, 66, 33], [1, 100, 40], 44]
+
+def make_data_for_groups():
+    return [[{"title" : "Первый тест", "due_date" : "28.04.2008", "description" : "Пройдите первый тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"},
+             {"title" : "Второй тест", "due_date" : "28.04.2008", "description" : "Пройдите второй тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"}],
+            [{"title": "Первая лекция", "description": "Пройдите лекцию и узнайте про таблицы истинности",
+              "link": "/lec1"},
+             {"title": "Вторая лекция", "description": "Пройдите лекцию и узнайте про графы", "link": "/lec2"},
+             {"title": "Третья лекция", "description": "Пройдите лекцию и узнайте про Д.П", "link": "/lec3"}]
+            ]
 
 if __name__ == "__main__":
     app.run(port=8080, host="127.0.0.1")

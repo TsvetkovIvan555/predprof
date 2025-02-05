@@ -2,11 +2,11 @@ import random
 
 def make_number(ind):
     if ind < 10:
-        return "00" + str(ind)
+        return "0000" + str(ind)
     elif ind < 100:
-        return "0" + str(ind)
+        return "000" + str(ind)
     else:
-        return str(ind)
+        return "00" + str(ind)
 
 for i in range(20):
     name = "test_" + make_number(i) + ".txt"

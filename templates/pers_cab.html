@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="/static/styles/pesc_cab.css">
     <style>
         body {
-            background-color: #343a40;
+            background-color: #2D2D2D;
             color: #ffffff; /* Основной цвет текста */
+            padding-top: 100px;
         }
         .profile-section {
             margin-top: 80px;
             padding: 20px;
             border-radius: 10px;
-            background-color: #495057;
+            background-color: #2b2b2b;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .highlight {
@@ -33,7 +34,7 @@
             margin: 0 auto;
         }
         .list-group-item {
-            background-color: #6c757d;
+            background-color: #2e2e2e;
             border: none;
             color: #ffffff; /* Цвет текста в списке групп */
         }
@@ -47,10 +48,18 @@
         .chartjs-render-monitor {
             color: #ffffff; /* Цвет текста в диаграмме */
         }
+        .tablo {
+            border: 1px solid #dddddd;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+            min-height: 1vh;
+            list-style-position: outside;
+            margin-top: 1rem;
+            padding: 15px 15px 15px 15px;
+        }
     </style>
 </head>
 <body>
-
     <header class="fixed-top">
         <nav class="navbar navbar-dark navbar-expand-md py-3" style="background: #2b2b2b">
             <div class="container">
@@ -87,7 +96,7 @@
                             <li class="btn ms-md-2 buttons">
                                 <a class="nav-link" href="/add_group">Add group</a>
                             </li>
-                            <li class="btn ms-md-2 buttons">
+                                                        <li class="btn ms-md-2 buttons">
                                 <a class="nav-link" href="/sign_out">Sign out</a>
                             </li>
                         </ul>
@@ -116,7 +125,7 @@
             </div>
         </nav>
     </header>
-
+    <div>
     <div class="container profile-section">
         <div class="row">
             <div class="col-md-4">
@@ -134,7 +143,8 @@
                     <canvas id="taskStatsChart"></canvas>
                 </div>
             </div>
-            <div class="container profile-section">
+            <div class="container">
+                <br>
                 <div class="row">
                     <div class="col-md-8">
                         <h3 class="highlight text-center">Группы</h3>
@@ -177,7 +187,7 @@
                         legend: {
                             position: 'top',
                             labels: {
-                                color: '#ffffff' // Цвет текста легенды
+                                        color: '#ffffff' // Цвет текста легенды
                             }
                         },
                         tooltip: {
