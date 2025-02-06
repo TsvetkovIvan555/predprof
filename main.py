@@ -64,7 +64,7 @@ def log_in():
             return render_template("login_bad.html", users_status=status)
 
 @app.route('/pers_cab')
-def pres_cub():
+def pers_cab():
     status = back.get_users_status(id_user_now)
     User = back.users_data(id_user_now)
     return render_template('pers_cab.html', User=User, users_status = status)
@@ -117,7 +117,7 @@ def test():
 
 
 
-#=========================================FUCK===================================================
+#============================================================================================
 
 @app.route('/add_task', methods=['POST', 'GET'])
 def add_task():
