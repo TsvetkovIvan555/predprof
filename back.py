@@ -202,18 +202,18 @@ def check_test(data):
 
 diff = {"Легко" : "1", "Средне" : "2", "Сложно" : "3"}
 
-def make_new_task(data):
-    name = "sources/tasks/task_" + str(data["index"]) + ".txt"
+def make_new_task(data, index):
+    name = "sources/tasks/task_" + str(index) + ".txt"
     file = open(name, mode="w", encoding="UTF-8")
     file.write(data["number"] + "\n")
     file.write(diff[data["difficulty"]] + "\n")
     file.write(data["text"] + "\n")
     file.write(data["answer"] + "\n")
     file.close()
-    return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(data["index"])]
+    return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(index)]
 
 def generate_random_token(length):
-    token = random.randint(10 * length, 10 * length - 1)
+    token = random.randint(10 ** length, 10 ** (length + 1))
     return token
 
 if __name__ == "__main__":

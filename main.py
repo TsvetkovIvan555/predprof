@@ -126,9 +126,10 @@ def add_task():
     if request.method == 'GET':
         return render_template("add_task.html", users_status = status)
     data = request.form
-    a = back.make_new_task(data)
+    index = back.generate_random_token(9)
+    a = back.make_new_task(data, index)
     tasks_ind[a[0]][a[1]].append(a[2])
-    return render_template("home_page.html", users_status = status)
+    return render_template("your_token.html", users_status = status, res = index)
 
 @app.route('/lec1')
 def lec1():
