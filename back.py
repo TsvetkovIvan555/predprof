@@ -1,5 +1,5 @@
 from flask import Flask
-import random, os
+import random
 
 app = Flask(__name__)
 
@@ -211,6 +211,10 @@ def make_new_task(data):
     file.write(data["answer"] + "\n")
     file.close()
     return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(data["index"])]
+
+def generate_random_token(length):
+    token = random.randint(10 * length, 10 * length - 1)
+    return token
 
 if __name__ == "__main__":
     app.run(port=8080, host="127.0.0.1")
