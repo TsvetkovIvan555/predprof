@@ -212,20 +212,6 @@ def make_new_task(data):
     file.close()
     return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(data["index"])]
 
-def make_statistics():
-    return [3, [{"name": "Lev", "results": [1, 100, 4], "final_score": 66},
-                {"name": "Misha", "results": [-1, 10, 48], "final_score": 0},
-                {"name": "Albert", "results": [1, 100, 40], "final_score": 100}], [33, 66, 33], [1, 100, 40], 44]
-
-def make_data_for_groups():
-    return [[{"title" : "Первый тест", "due_date" : "28.04.2008", "description" : "Пройдите первый тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"},
-             {"title" : "Второй тест", "due_date" : "28.04.2008", "description" : "Пройдите второй тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"}],
-            [{"title": "Первая лекция", "description": "Пройдите лекцию и узнайте про таблицы истинности",
-              "link": "/lec1"},
-             {"title": "Вторая лекция", "description": "Пройдите лекцию и узнайте про графы", "link": "/lec2"},
-             {"title": "Третья лекция", "description": "Пройдите лекцию и узнайте про Д.П", "link": "/lec3"}]
-            ]
-
 if __name__ == "__main__":
     app.run(port=8080, host="127.0.0.1")
 

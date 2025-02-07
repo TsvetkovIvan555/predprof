@@ -2,6 +2,7 @@
 
 {% block content1 %}
 <link rel="stylesheet" href="/static/styles/login.css">
+<link rel="stylesheet" href="/static/styles/main_styles.css">
 {% endblock %}
 
 {% block content2 %}
@@ -20,10 +21,9 @@
                 <div class="card-body div-questions">
                     <br>
                     <form class="login_form" method="post" onsubmit="validateForm(event)">
-                        <div style="color: red; margin-top: 10px; text-align: center;">
-                            Такой пользователь уже есть
+                        <div style="align-items: center; text-align: center;">
+                            <small class="d-inline-flex mb-3 px-2 py-1 fw-semibold text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-2">Пользователь с таким ником уже есть</small>
                         </div>
-                        <br>
                         <div class="div-questions">
                             <label for="name" class="label_quest">Enter your full name</label>
                             <input class="form-control questions" type="text" placeholder="full name" id="name" name="name" required>

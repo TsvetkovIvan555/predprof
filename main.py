@@ -10,7 +10,8 @@ tasks_ind = [[[], [442701234045], [], [213356906846], [688796500706], [], [13456
 tests_cnt = 0
 while os.path.isfile("sources/tests/test_" + "0"*(5-len(str(tests_cnt))) + str(tests_cnt) + ".txt"):
     tests_cnt += 1
-cnt_users = 4
+cnt_users = 2
+
 #====================================================
 
 
@@ -117,7 +118,7 @@ def test():
 
 
 
-#============================================================================================
+#=========================================FUGG===================================================
 
 @app.route('/add_task', methods=['POST', 'GET'])
 def add_task():
@@ -187,21 +188,24 @@ def add_group():
 @app.route('/group1')
 def group():
     status = back.get_users_status(id_user_now)
-    data = back.make_data_for_groups()
-    tasks = data[0]
-    lectures = data[1]
+    tasks = [{"title" : "Первый тест", "due_date" : "28.04.2008", "description" : "Пройдите первый тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"},
+             {"title" : "Второй тест", "due_date" : "28.04.2008", "description" : "Пройдите второй тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"}]
+    lectures = [{"title" : "Первая лекция", "description" : "Пройдите лекцию и узнайте про таблицы истинности", "link" : "/lec1"},
+                {"title" : "Вторая лекция", "description" : "Пройдите лекцию и узнайте про графы", "link" : "/lec2"},
+                {"title" : "Третья лекция", "description" : "Пройдите лекцию и узнайте про Д.П", "link" : "/lec3"}]
     return render_template("group1.html", users_status = status, tasks = tasks, lectures = lectures)
 
 
 @app.route('/statistic')
 def statistics():
     status = back.get_users_status(id_user_now)
-    data = back.make_statistics()
-    number_of_tasks = data[0]
-    students = data[1]
-    overall_results = data[2]
-    correct_results = data[3]
-    overall_group_completion = data[4]\
+    number_of_tasks = 4
+    students = [{"name": "Lev", "results": [1, 100, 4, 5], "final_score": 75},
+                {"name": "Misha", "results": [-1, 10, 40, 5], "final_score": 50},
+                {"name": "Albert", "results": [1, 100, 40, 5], "final_score": 100}]
+    overall_results = [33, 66, 33, 100]
+    correct_results = [1, 100, 40, 5]
+    overall_group_completion = 44
 
     return render_template("statistic.html", users_status=status, number_of_tasks=number_of_tasks, students=students,
                            overall_results=overall_results, correct_results=correct_results,

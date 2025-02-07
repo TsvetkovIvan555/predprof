@@ -10,28 +10,14 @@
     background-color: #2b2b2b;
     border-radius: 10px;
 }
-.welcome-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-height: 50vh;
-}
-.button-column {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-.buttons {
-    border-radius: 50px;
-}
-.cards {
-    background: #808080;
+.div-questions {
+    width: 500px;
+    margin: auto;
 }
 .questions {
     width: 300px;
     margin: 1px auto;
 }
-
 .label_quest {
     display: flex;
     flex-direction: column;
@@ -40,17 +26,7 @@
     align-items: left;
     color: rgba(255, 255, 255, 0.75);
 }
-
-.login_txt {
-    width: 400px;
-    margin: auto;
-}
-
 .center {
     display: block;
     margin: 0 auto;
-}
-
-.buttons {
-    border-radius: 50px;
 }

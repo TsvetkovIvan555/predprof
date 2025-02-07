@@ -2,6 +2,7 @@
 
 {% block content1 %}
 <link rel="stylesheet" href="/static/styles/login.css">
+<link rel="stylesheet" href="/static/styles/main_styles.css">
 {% endblock %}
 
 {% block content2 %}
@@ -34,12 +35,8 @@
                             <div class="mb-3">
                                 <button class="btn btn-primary d-block w-50 buttons" style="margin:auto" type="submit">Login</button>
                             </div>
-                            <br>
                         </form>
-                        <!-- Надпись "Нет такого пользователя" -->
-                        <div style="color: red; margin-top: 10px; text-align: center;">
-                            Нет такого пользователя
-                        </div>
+                        <small class="d-inline-flex mb-3 px-2 py-1 fw-semibold text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-2">Неверный логин</small>
                         <br>
                     </div>
                 </div>

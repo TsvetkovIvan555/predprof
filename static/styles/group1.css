@@ -1,0 +1,10 @@
+.task-box, .lecture-box {
+    background-color: #2b2b2b; /* Цвет фона */
+    padding: 15px; /* Отступы */
+    border-radius: 5px; /* Закругленные углы */
+    margin-bottom: 10px; /* Отступ снизу */
+    color: white; /* Цвет текста */
+}
+.form-check {
+    margin-bottom: 10px; /* Отступ снизу для чекбоксов */
+}
