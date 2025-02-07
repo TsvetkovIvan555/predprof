@@ -115,6 +115,12 @@
                 <div class="form-group">
                     <form id="taskSelectContainer" method="POST">
                         <div class="task-box">
+                            <h4>Введите ID задачи:</h4>
+                            <input type="number" class="form-control" id="taskId" name="taskId" placeholder="Введите ID задачи">
+                            <button type="button" class="btn btn-primary mt-2" onclick="findTask()">Найти</button>
+                            <p id="taskResult" class="mt-2" style="color: white;"></p>
+                        </div>
+                        <div class="task-box">
                             <h4>Выберите сложность:</h4>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="dif1" id="dif1">
@@ -268,6 +274,18 @@
                             }
                         }
                     };
+
+                    function findTask() {
+                        var taskId = document.getElementById("taskId").value;
+                        var tasks = {{ tasks | tojson }}; // Получаем список задач из Python
+                        var resultElement = document.getElementById("taskResult");
+                        
+                        if (taskId >= 0 && taskId < tasks.length) {
+                            resultElement.innerHTML = "Задача: " + tasks[taskId][2]; // Выводим описание задачи
+                        } else {
+                            resultElement.innerHTML = "Такой задачи нет"; // Сообщение об ошибке
+                        }
+                    }
                 </script>
                 {% for i in range(n) %}
                 <div class="tablo">

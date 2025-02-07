@@ -3,3 +3,6 @@ body {
     color: #e0e0e0;
     margin-top: 100px;
 }
+.buttons {
+    border-radius: 50px;
+}
