@@ -162,7 +162,7 @@ def generate_random_questions_for_test(tasks_ind):
     return random_questions
 
 
-def unpack_task():
+def unpack_task(id):
     name = "sources/tasks/task_" + str(id) + ".txt"
     f = open(name, mode="r", encoding="UTF-8")
     result = dict()

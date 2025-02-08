@@ -9,26 +9,32 @@
     {% if res == -1 or res == -2 %}
     <section>
         <script>
-            var i = 1;
             function addTaskInput() {
                 const div = document.createElement('div');
-                div.className = 'div-questions';
+                div.className = 'div-questions1';
                 div.innerHTML = `
                     <label for="new_task_id" class="label_quest">Введите ID задания</label>
                     <input class="form-control questions" type="number" placeholder="ID задания" id="task_input" name="task_id{{i}}" required>
                 `;
-    
+
                 document.getElementById('inputContainer').appendChild(div);
+            }
+            function deleteInput() {
+                let elems = document.querySelectorAll('.div-questions1')
+                if(elems.length > 0){
+                    let el = elems[elems.length - 1]
+                    el.remove();
+                }
             }
         </script>
         <div class="container">
-            <div class="col">
-                <h2 class="text-center"><span style="color: rgb(255, 255, 255);">Добавить задание</span><br></h2>
-            </div>
             <div class="row">
                 <div class="col">
                     <div class="card-body div-questions">
                         <form class="task_form" method="POST" onsubmit="validateForm(event)">
+                            <div class="col">
+                                <h2 class="text-center"><span style="color: rgb(255, 255, 255);">Добавить задание</span><br></h2>
+                            </div>
                             <div id="inputContainer">
                                 <div class="div-questions">
                                     <label for="task_input" class="label_quest">Введите ID задания</label>
@@ -38,6 +44,10 @@
                             <br>
                             <div class="div-questions">
                                 <button class="btn btn-primary d-block div-questions" type="button" onclick="addTaskInput()" style="margin: 0px auto;width: 300px;">Добавить задание</button>
+                            </div>
+                            <br>
+                            <div class="div-questions">
+                                <button class="btn btn-primary d-block div-questions" type="button" onclick="deleteInput()" style="margin: 0px auto;width: 300px;">Удалить задание</button>
                             </div>
                             <br>
                             {% if res == -2 %}
