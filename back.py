@@ -246,7 +246,7 @@ def make_tasks_id():
                 type = f.readline().replace("\n", "")
                 diff = f.readline().replace("\n", "")
                 f.close()
-                task[int(diff) - 1][int(type) - 1].append(int(id))
+                task[int(diff) - 1][int(type) - 1].append(id)
     return task
 
 if __name__ == "__main__":

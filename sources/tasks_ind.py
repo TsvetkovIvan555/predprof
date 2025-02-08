@@ -15,5 +15,5 @@ for root, dirs, files in os.walk(folder_path):
             diff = f.readline().replace("\n", "")
             f.close()
 
-            task[int(diff) - 1][int(type) - 1].append(int(id))
+            task[int(diff) - 1][int(type) - 1].append(id)
 print(task)
