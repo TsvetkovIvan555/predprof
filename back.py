@@ -7,11 +7,13 @@ def find_cnt_of_tests():
     tests_cnt = 0
     while os.path.isfile("sources/tests/test_" + "0" * (5 - len(str(tests_cnt))) + str(tests_cnt) + ".txt"):
         tests_cnt += 1
+    return tests_cnt
 
 def find_cnt_of_users():
-    users_cnt = 0
-    while os.path.isfile("sources/tests/test_" + "0" * (3 - len(str(users_cnt))) + str(users_cnt) + ".txt"):
+    users_cnt = 1
+    while os.path.isfile("sources/users/user_" + "0" * (3 - len(str(users_cnt))) + str(users_cnt) + ".txt"):
         users_cnt += 1
+    return users_cnt
 
 def make_cnt(ind):
     if ind < 10:
@@ -179,7 +181,7 @@ def generate_specific_test(test_id):
     f = open(name, mode="r", encoding="UTF-8")
     task_id = f.readline().rstrip()
     questions = []
-    while (task_id):
+    while task_id:
         d = unpack_task(task_id)
         questions.append({'text': d['problem'], 'correct_answer': d['answer']})
         task_id = f.readline().rstrip()
@@ -192,7 +194,7 @@ def check_test(data):
     correct_answers = []
     i = 0
 
-    while data.get('answer' + str(i)) != None:
+    while data.get('answer' + str(i)):
         user_answers.append(data.get('answer' + str(i)))
         correct_answers.append(data.get('correct_answer' + str(i)))
         i += 1
@@ -224,6 +226,25 @@ def make_new_task(data, index):
 def generate_random_token(length):
     token = random.randint(10 ** length, 10 ** (length + 1))
     return token
+
+
+def make_tasks_id():
+    task = [[[] for _ in range(27)] for _ in range(3)]
+    folder_path = "sources/tasks"
+    for root, dirs, files in os.walk(folder_path):
+        for file_name in files:
+            file = os.path.join(root, file_name)
+
+            if file[file.find(".") + 1:] == "txt" and file.find("_") == file.rfind("_"):
+                f = open(file, 'r', encoding='utf-8')
+                a = file.find("_") + 1
+                b = file.find(".")
+                id = file[a:b]
+                type = f.readline().replace("\n", "")
+                diff = f.readline().replace("\n", "")
+                f.close()
+                task[int(diff) - 1][int(type) - 1].append(int(id))
+    return task
 
 if __name__ == "__main__":
     app.run(port=8080, host="127.0.0.1")
