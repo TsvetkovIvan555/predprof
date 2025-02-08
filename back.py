@@ -1,7 +1,17 @@
 from flask import Flask
-import random
+import random, os
 
 app = Flask(__name__)
+
+def find_cnt_of_tests():
+    tests_cnt = 0
+    while os.path.isfile("sources/tests/test_" + "0" * (5 - len(str(tests_cnt))) + str(tests_cnt) + ".txt"):
+        tests_cnt += 1
+
+def find_cnt_of_users():
+    users_cnt = 0
+    while os.path.isfile("sources/tests/test_" + "0" * (3 - len(str(users_cnt))) + str(users_cnt) + ".txt"):
+        users_cnt += 1
 
 def make_cnt(ind):
     if ind < 10:
@@ -70,27 +80,8 @@ def users_data(ind):
     nick = file.readline().replace("\n", "")
     file.close()
     return {
-        'full_name': name,
-        'login': login,
-        'email': email,
-        'solved_tasks': solved,
-        'nick': nick,
-        'groups': ['Группа 1', 'Группа 2', 'Группа 3']
-    }
-
-def users_data(ind):
-    name = make_users_id(ind)
-    file = open(name, mode="r", encoding="UTF-8")
-    status = file.readline().replace("\n", "")
-    name = file.readline().replace("\n", "")
-    login = file.readline().replace("\n", "")
-    email = file.readline().replace("\n", "")
-    password = file.readline().replace("\n", "")
-    solved = file.readline().replace("\n", "")
-    unsolved = file.readline().replace("\n", "")
-    nick = file.readline().replace("\n", "")
-    file.close()
-    return {
+        'status' : status,
+        'password' : password,
         'full_name': name,
         'login': login,
         'email': email,
@@ -124,36 +115,54 @@ def generate_task(data, tasks_ind):
         if data.get("dif" + str(i)):
             diff.append(i - 1)
     gen_n = 0
-    for i in diff:
-        for j in index:
-            for ind in tasks_ind[i][j]:
-                name = "sources/tasks/task_" + str(ind) + ".txt"
-                file = open(name, mode="r", encoding="UTF-8")
-                task_number = int(file.readline().replace("\n", ""))
-                task_diff = int(file.readline().replace("\n", ""))
-                task_text = file.readline()
-                task_ans = file.readline()
-                task_index = ind
-                file.close()
 
-                gen_n += 1
-                a = [task_number, task_index, task_text, task_ans]
-                gen_tasks.append(a)
-    ans = [gen_n, gen_tasks]
-    return ans
+    try:
+        ind = data["task_id"]
+        gen_n = 1
+        name = "sources/tasks/task_" + str(ind) + ".txt"
+        file = open(name, mode="r", encoding="UTF-8")
+        task_number = int(file.readline().replace("\n", ""))
+        task_diff = int(file.readline().replace("\n", ""))
+        task_text = file.readline()
+        task_ans = file.readline()
+        task_index = ind
+        file.close()
+
+        a = [task_number, task_index, task_text, task_ans]
+        gen_tasks.append(a)
+        ans = [gen_n, gen_tasks]
+        return ans
+    except:
+        for i in diff:
+            for j in index:
+                for ind in tasks_ind[i][j]:
+                    name = "sources/tasks/task_" + str(ind) + ".txt"
+                    file = open(name, mode="r", encoding="UTF-8")
+                    task_number = int(file.readline().replace("\n", ""))
+                    task_diff = int(file.readline().replace("\n", ""))
+                    task_text = file.readline()
+                    task_ans = file.readline()
+                    task_index = ind
+                    file.close()
+
+                    gen_n += 1
+                    a = [task_number, task_index, task_text, task_ans]
+                    gen_tasks.append(a)
+        ans = [gen_n, gen_tasks]
+        return ans
 
 def generate_random_questions_for_test(tasks_ind):
     random_questions = []
     for i in range(0, 26):
         j = random.randint(0, 2)
-        if(len(tasks_ind[j][i]) != 0):
+        if len(tasks_ind[j][i]) != 0:
             z = random.randint(0, len(tasks_ind[j][i])-1)
             d = unpack_task(tasks_ind[j][i][z])
             random_questions.append({'text': d['problem'].rstrip(), 'correct_answer': d['answer'].rstrip()})
     return random_questions
 
 
-def unpack_task(id):
+def unpack_task():
     name = "sources/tasks/task_" + str(id) + ".txt"
     f = open(name, mode="r", encoding="UTF-8")
     result = dict()
