@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
-import back, os
+from werkzeug.utils import redirect
+
+import back, os, groups_back
 
 app = Flask(__name__)
 
@@ -65,8 +67,8 @@ def log_in():
 @app.route('/pers_cab')
 def pers_cab():
     status = back.get_users_status(id_user_now)
-    User = back.users_data(id_user_now)
-    return render_template('pers_cab.html', User=User, users_status = status)
+    user = back.users_data(id_user_now)
+    return render_template('pers_cab.html', User=user, users_status = status)
 
 @app.route('/sign_out')
 def sign_out():
@@ -184,16 +186,14 @@ def add_group():
         lectures = []
         return render_template("group1.html", users_status=status, tasks=tasks, lectures=lectures)
 
-@app.route('/group1')
-def group():
+@app.route('/group<ind>')
+def group(ind):
     status = back.get_users_status(id_user_now)
-    tasks = [{"title" : "Первый тест", "due_date" : "28.04.2008", "description" : "Пройдите первый тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"},
-             {"title" : "Второй тест", "due_date" : "28.04.2008", "description" : "Пройдите второй тест и получите 2", "test_link" : "/test", "results_link" : "/statistic"}]
+    tasks = groups_back.make_tests_for_groups(ind)
     lectures = [{"title" : "Первая лекция", "description" : "Пройдите лекцию и узнайте про таблицы истинности", "link" : "/lec1"},
                 {"title" : "Вторая лекция", "description" : "Пройдите лекцию и узнайте про графы", "link" : "/lec2"},
                 {"title" : "Третья лекция", "description" : "Пройдите лекцию и узнайте про Д.П", "link" : "/lec3"}]
     return render_template("group1.html", users_status = status, tasks = tasks, lectures = lectures)
-
 
 @app.route('/statistic')
 def statistics():

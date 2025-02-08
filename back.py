@@ -69,6 +69,9 @@ def find_user(data, cnt_users):
                 return -1
     return -2
 
+def make_users_groups():
+    return [['Группа 1', "/group1"], ['Группа 2', "/group2"], ['Группа 3', "/group3"]]
+
 def users_data(ind):
     name = make_users_id(ind)
     file = open(name, mode="r", encoding="UTF-8")
@@ -90,7 +93,7 @@ def users_data(ind):
         'solved': solved,
         'unsolved' : unsolved,
         'nick': nick,
-        'groups': ['Группа 1', 'Группа 2', 'Группа 3']
+        'groups': make_users_groups()
     }
 
 def check(data, cnt_users):

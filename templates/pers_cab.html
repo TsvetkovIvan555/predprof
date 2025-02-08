@@ -31,9 +31,9 @@
                 <div class="col-md-8">
                     <h3 class="highlight text-center">Группы</h3>
                     <ul class="list-group">
-                        {% for group in User.groups %}
+                        {% for group in User['groups'] %}
                         <li class="list-group-item">
-                            <a class="nav-link" href="/group1">{{ group }}</a>
+                            <a class="nav-link" href="{{group[1]}}">{{ group[0] }}</a>
                         </li>
                         {% else %}
                         <li class="list-group-item">Нет групп</li>
