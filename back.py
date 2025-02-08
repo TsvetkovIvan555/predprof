@@ -117,7 +117,7 @@ def generate_task(data, tasks_ind):
     gen_n = 0
 
     try:
-        ind = data["task_id"]
+        ind = int(data["token"])
         gen_n = 1
         name = "sources/tasks/task_" + str(ind) + ".txt"
         file = open(name, mode="r", encoding="UTF-8")
