@@ -230,7 +230,7 @@ def group(ind, index_of_owner):
         {"title": "Вторая лекция", "description": "Пройдите лекцию и узнайте про графы", "link": "/lec2"},
         {"title": "Третья лекция", "description": "Пройдите лекцию и узнайте про Д.П", "link": "/lec3"}
     ]
-    group = {'token': '1032932948', 'names': ['Lev Bernshteyn', "Misha Amyrhanyan", "Albert Minich"], 'nicks' : ["lol4ik", "Ruki_bazuki", "Caption"], 'num_of_users': 3}
+    group = {'token': '1032932948', 'names': ['Лев Бернштейн', "Михаил Амирханян", "Альберт Миних"], 'nicks' : ["lol4ik", "Ruki_bazuki", "Caption"], 'num_of_users': 3}
     return render_template("group1.html", users_status = status, tasks = tasks, lectures = lectures, owner = int(index_of_owner), user = int(id_user_now), link = ("/add_test_for_group" + str(ind)), group = group)
 
 @app.route('/add_test_for_group<ind>', methods=['GET', 'POST'])
@@ -266,9 +266,9 @@ def change_data(): #regestation
 def statistics():
     status = back.get_users_status(id_user_now)
     number_of_tasks = 4
-    students = [{"name": "Lev Bernshteyn", "results": [0, 100, 4, 5], "final_score": 50},
-                {"name": "Misha Amyrhanyan", "results": [-1, 10, 9, 5], "final_score": 25},
-                {"name": "Albert Minich", "results": [2, 100, 40, 5], "final_score": 75}]
+    students = [{"name": "Лев Бернштейн", "results": [0, 100, 4, 5], "final_score": 50},
+                {"name": "Михаил Амирханян", "results": [-1, 10, 9, 5], "final_score": 25},
+                {"name": "Альберт Миних", "results": [2, 100, 40, 5], "final_score": 75}]
     overall_results = [0, 66, 33, 100]
     correct_results = [1, 100, 40, 5]
     overall_group_completion = 50
