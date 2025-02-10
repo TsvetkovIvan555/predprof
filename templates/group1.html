@@ -35,13 +35,13 @@
         </div>
         <section id="tests-section" style="display: block;">
             <h2 class="text-center">Задания</h2>
+            {% if (owner == user) %}
+                <a href="{{ link }}" class="btn btn-primary">Добавить тест</a>
+            {% endif %}
             <div class="row">
                 {% for task in tasks %}
                 <div class="col-md-12">
                     <div class="task-box">
-                        <h5 class="task-title">{{ task["title"] }}</h5>
-                        <p>Срок сдачи: {{ task["due_date"] }}</p>
-                        <p>{{ task["description"] }}</p>
                         <div>
                             <a href="{{ task['test_link'] }}" class="btn btn-primary">Пройти задание</a>
                             <a href="{{ task['results_link'] }}" class="btn btn-secondary">Посмотреть результаты</a>
@@ -53,6 +53,9 @@
         </section>
         <section id="lectures-section" style="display: none;">
             <h2 class="text-center">Лекции</h2>
+            {% if (owner == user) %}
+                <a href="/link" class="btn btn-primary">Добавить лекцию</a>
+            {% endif %}
             <div class="row">
                 {% for lecture in lectures %}
                 <div class="col-md-12">

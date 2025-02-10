@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
 
 import back, os, groups_back
@@ -11,6 +11,7 @@ id_user_now = -1 # -1 = no user now
 tasks_ind = back.make_tasks_id()
 tests_cnt = back.find_cnt_of_tests()
 cnt_users = back.find_cnt_of_users()
+groups_cnt = back.find_cnt_of_groups()
 
 #====================================================
 
@@ -64,11 +65,18 @@ def log_in():
             status = back.get_users_status(id_user_now)
             return render_template("login_bad.html", users_status=status)
 
-@app.route('/pers_cab')
+@app.route('/pers_cab', methods=['GET', 'POST'])
 def pers_cab():
-    status = back.get_users_status(id_user_now)
-    user = back.users_data(id_user_now)
-    return render_template('pers_cab.html', User=user, users_status = status)
+    if request.method == 'GET':
+        status = back.get_users_status(id_user_now)
+        user = back.users_data(id_user_now)
+        return render_template('pers_cab.html', User=user, users_status = status)
+    elif request.method == 'POST':
+        data = request.form
+        groups_back.add_new_user_to_group(data, id_user_now)
+        status = back.get_users_status(id_user_now)
+        user = back.users_data(id_user_now)
+        return render_template('pers_cab.html', User=user, users_status=status)
 
 @app.route('/sign_out')
 def sign_out():
@@ -98,21 +106,46 @@ def task():
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
+    is_found = 0
     status = back.get_users_status(id_user_now)
     test_questions = back.generate_random_questions_for_test(tasks_ind)
     results = []
-    is_found = 1
     if request.method == 'POST':
         if request.form.get('specific-test-id'):
             test_id = request.form.get('specific-test-id')
-            if os.path.isfile("sources/tests/test_" + str(test_id) + ".txt"):
+            if test_id == "-1":
+                test_questions = back.generate_random_questions_for_test(tasks_ind)
+                is_found = 1
+            elif os.path.isfile("sources/tests/test_"  + str(test_id) + ".txt"):
                 test_questions = back.generate_specific_test(test_id)
+                is_found = 1
             else:
                 is_found = -1
+                return render_template('test.html', users_status = status, test_found = is_found)
         else:
+            is_found = 1
             data = request.form
             results = back.check_test(data)
-    return render_template('test.html', questions=test_questions, results=results, test_found=is_found, enumerate=enumerate, users_status = status)
+        return render_template("test.html", questions=test_questions, enumerate=enumerate, results=results, users_status = status, test_found=is_found, group_test = 0)
+    return render_template('test.html', questions=test_questions, enumerate=enumerate, results=results, users_status = status, test_found = is_found, group_test = 0)
+
+@app.route('/test/<test_id>', methods=['GET', 'POST'])
+def test_from_group(test_id):
+    is_found = 0
+    status = back.get_users_status(id_user_now)
+    results = []
+    if os.path.isfile("sources/tests/test_"  + str(test_id).rstrip() + ".txt"):
+        test_questions = back.generate_specific_test(test_id)
+        is_found = 1
+    else:
+        is_found = -1
+        return redirect(url_for('test'))
+    if request.method == 'POST':
+        is_found = 1
+        data = request.form
+        results = back.check_test(data)
+        return render_template("test.html", questions=test_questions, enumerate=enumerate, results=results, users_status = status, test_found=is_found, group_test = 1)
+    return render_template('test.html', questions=test_questions, enumerate=enumerate, results=results, users_status = status, test_found = is_found, group_test = 1)
 
 #==============================================================================
 
@@ -129,7 +162,7 @@ def add_task():
     index = back.generate_random_token(9)
     a = back.make_new_task(data, index)
     tasks_ind[a[0]][a[1]].append(a[2])
-    return render_template("your_token.html", users_status = status, res = index)
+    return render_template("your_token_test.html", users_status = status, res = index)
 
 @app.route('/lec1')
 def lec1():
@@ -156,13 +189,13 @@ def add_test():
             if not os.path.isfile("sources/tasks/task_" + str(id) + ".txt"):
                 result = -2
         if result != -2:
+            tests_cnt += 1
             gen_text_file = "sources/tests/test_" + "0"*(5-len(str(tests_cnt))) + str(tests_cnt) + ".txt"
             f = open(gen_text_file, 'w')
             for key, id in a.items(multi=True):
                 f.write(id + "\n")
             f.close()
             result = "0"*(5-len(str(tests_cnt))) + str(tests_cnt)
-            tests_cnt += 1
     status = back.get_users_status(id_user_now)
     return render_template("add_test.html", res = result, users_status = status)
 
@@ -181,19 +214,52 @@ def add_group():
     if request.method == 'GET':
         return render_template("add_group.html", users_status = status)
     else:
+        data = request.form
+        global groups_cnt
+        groups_cnt += 1
+        ind = groups_back.add_group(data, groups_cnt, id_user_now)
         status = back.get_users_status(id_user_now)
-        tasks = []
-        lectures = []
-        return render_template("group1.html", users_status=status, tasks=tasks, lectures=lectures)
+        return render_template("your_token_group.html", users_status=status, res = ind)
 
-@app.route('/group<ind>')
-def group(ind):
+@app.route('/group<ind>_<index_of_owner>')
+def group(ind, index_of_owner):
     status = back.get_users_status(id_user_now)
     tasks = groups_back.make_tests_for_groups(ind)
-    lectures = [{"title" : "Первая лекция", "description" : "Пройдите лекцию и узнайте про таблицы истинности", "link" : "/lec1"},
-                {"title" : "Вторая лекция", "description" : "Пройдите лекцию и узнайте про графы", "link" : "/lec2"},
-                {"title" : "Третья лекция", "description" : "Пройдите лекцию и узнайте про Д.П", "link" : "/lec3"}]
-    return render_template("group1.html", users_status = status, tasks = tasks, lectures = lectures)
+    lectures = [
+        {"title": "Первая лекция", "description": "Пройдите лекцию и узнайте про таблицы истинности", "link": "/lec1"},
+        {"title": "Вторая лекция", "description": "Пройдите лекцию и узнайте про графы", "link": "/lec2"},
+        {"title": "Третья лекция", "description": "Пройдите лекцию и узнайте про Д.П", "link": "/lec3"}
+    ]
+    return render_template("group1.html", users_status = status, tasks = tasks, lectures = lectures, owner = int(index_of_owner), user = int(id_user_now), link = ("/add_test_for_group" + str(ind)))
+
+@app.route('/add_test_for_group<ind>', methods=['GET', 'POST'])
+def add_test_for_group(ind):
+    status = back.get_users_status(id_user_now)
+    if request.method == 'GET':
+        return render_template("add_test_for_group.html", users_status = status)
+    else:
+        data = request.form
+        groups_back.add_test(data, ind)
+        return redirect("pers_cab")
+
+
+@app.route('/change_data', methods=['POST', 'GET'])
+def change_data(): #regestation
+    global id_user_now
+    if request.method == 'GET':
+        status = back.get_users_status(id_user_now)
+        return render_template("change_users_data.html", users_status = status)
+    elif request.method == "POST":
+        data = request.form
+        if back.check1(data, cnt_users, id_user_now):
+            back.change_users_data(data, id_user_now)
+            status = back.get_users_status(id_user_now)
+            return redirect("pers_cab")
+        else:
+            status = back.get_users_status(id_user_now)
+            return render_template("change_users_data_bad.html", users_status=status)
+
+
 
 @app.route('/statistic')
 def statistics():

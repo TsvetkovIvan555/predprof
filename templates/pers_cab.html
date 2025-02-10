@@ -17,7 +17,7 @@
             <h2 class="highlight">Профиль пользователя</h2>
             <p><strong>Количество решенных задач:</strong> {{ User.solved }}</p>
             <p><strong>Ник:</strong> {{ User.nick }}</p>
-            <a class="btn btn-primary btn-block" href="/edit_profile">Редактировать</a>
+            <a class="btn btn-primary btn-block" href="/change_data">Редактировать</a>
         </div>
         <div class="col-md-8">
             <h3 class="highlight text-center chart-title">Процент решенных задач</h3>
@@ -25,30 +25,32 @@
                 <canvas id="taskStatsChart"></canvas>
             </div>
         </div>
-        <div class="container">
-            <br>
-            <div class="row">
-                <div class="col-md-8">
-                    <h3 class="highlight text-center">Группы</h3>
-                    <ul class="list-group">
-                        {% for group in User['groups'] %}
-                        <li class="list-group-item">
-                            <a class="nav-link" href="{{group[1]}}">{{ group[0] }}</a>
-                        </li>
-                        {% else %}
-                        <li class="list-group-item">Нет групп</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h3 class="highlight text-center">Присоединиться к группе</h3> <br>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="groupCode" placeholder="Код группы" required>
-                        <button class="btn btn-primary" type="button">Отправить</button>
+        <form method="POST">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3 class="highlight text-center">Группы</h3>
+                        <ul class="list-group">
+                            {% for group in User['groups'] %}
+                            <li class="list-group-item">
+                                <a class="nav-link" href="{{group[1]}}">{{ group[0] }}</a>
+                            </li>
+                            {% else %}
+                            <li class="list-group-item">Нет групп</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="highlight text-center">Присоединиться к группе</h3> <br>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="groupCode" name="groupCode" placeholder="Код группы" required>
+                            <button class="btn btn-primary" type="submit">Отправить</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <script>

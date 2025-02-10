@@ -2,22 +2,18 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>KEFteme</title>
+    <title>KEFteme - Вопросы теста</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="/static/styles/test.css">
     <link rel="stylesheet" href="/static/styles/main_styles.css">
     <style>
-        /* Стили для прямоугольников с заданиями */
         .task-box {
             background-color: #2b2b2b; /* Цвет фона */
             padding: 15px; /* Отступы */
             border-radius: 5px; /* Закругленные углы */
             margin-bottom: 10px; /* Отступ снизу */
             color: white; /* Цвет текста */
-        }
-        .form-check {
-            margin-bottom: 10px; /* Отступ снизу для чекбоксов */
         }
     </style>
 </head>
@@ -33,16 +29,16 @@
                         KEFteme</span>
                 </a>
                 {% if users_status == 1 %}
-                     <div class="collapse navbar-collapse" id="navcol-4">
+                    <div class="collapse navbar-collapse" id="navcol-4">
                         <ul class="navbar-nav ms-auto">
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
+                                <a class="nav-link" href="/">Главная</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/signup">Sign up</a>
+                                <a class="nav-link" href="/signup">Зарегистрироваться</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/log_in">Log in</a>
+                                <a class="nav-link" href="/log_in">Войти</a>
                             </li>
                         </ul>
                     </div>
@@ -50,16 +46,16 @@
                     <div class="collapse navbar-collapse" id="navcol-5">
                         <ul class="navbar-nav ms-auto">
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
+                                <a class="nav-link" href="/">Главная</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/pers_cab">Personal account</a>
+                                <a class="nav-link" href="/pers_cab">Личный кабинет</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_group">Add group</a>
+                                <a class="nav-link" href="/add_group">Создать группу</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/sign_out">Sign out</a>
+                                <a class="nav-link" href="/sign_out">Выйти</a>
                             </li>
                         </ul>
                     </div>
@@ -67,19 +63,19 @@
                     <div class="collapse navbar-collapse" id="navcol-6">
                         <ul class="navbar-nav ms-auto">
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/">Home</a>
+                                <a class="nav-link" href="/">Главная</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_task">Add task</a>
+                                <a class="nav-link" href="/add_task">Добавить задание</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_course">Add course</a>
+                                <a class="nav-link" href="/add_course">Добавить курс</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/add_group">Add group</a>
+                                <a class="nav-link" href="/add_group">Создать группу</a>
                             </li>
                             <li class="btn ms-md-2 buttons">
-                                <a class="nav-link" href="/sign_out">Sign out</a>
+                                <a class="nav-link" href="/sign_out">Выйти</a>
                             </li>
                         </ul>
                     </div>
@@ -87,70 +83,102 @@
             </div>
         </nav>
     </header>
-
-    <main class="container my-5">
-        <section id="test" class="my-5">
-            <h2 class="text-center">Тест</h2>
-
-            {% if results %}
-            <div class="result-table">
-                <table class="table table-dark table-striped">
-                    <thead>
-                        <tr>
-                            <th>Ваш ответ</th>
-                            <th>Правильный ответ</th>
-                            <th>Результат</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for result in results %}
-                        <tr>
-                            <td>{{ result.user_answer }}</td>
-                            <td>{{ result.correct_answer }}</td>
-                            <td class="{{ 'correct' if result.is_correct else 'incorrect' }}">
-                                {{ '✔️' if result.is_correct else '❌' }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <form method="GET">
-                    <button type="submit" class="btn btn-primary">Сбросить</button>
-                </form>
-            </div>
-            {% endif %}
-            {% if not (results)%}
-            <form id="notRandom" method="POST">
-                <label for="specific-test-id" class="form-label">Пройти конкретный тест</label>
-                <input type="text" id="specific-test-id" name="specific-test-id" class="form-control" style="width:300px" required>
-                <button type="submit" class="btn btn-primary">Найти</button>
-            </form>
-            <form method="GET">
-                <button type="submit" class="btn btn-primary">Случайный тест</button>
-            </form>
-            <a class="btn btn-primary buttons" href="/add_test">Создать тест</a>
-            {% if test_found == -1 %}
-                <h6 style = "color: red; text-align: center">Введите корректное ID!</h6>
-            {% endif %}
-            <div class="px-5">
-                <div class="row">
-                    <div class="col-md-8 task-box">
-                        <form id="quizForm" method="POST">
-                            {% for index, question in enumerate(questions) %}
-                            <div class="tablo">
-                                <label for="answer{{ index }}" class="form-label">{{ question.text }}</label>
-                                <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
-                                <input type="text" id="correct_answer{{ index }}"  name="correct_answer{{ index }}" value="{{ question.correct_answer }}" class="form-control" style="visibility: hidden;">
-                            </div>
-                            {% endfor %}
-                            <button type="submit" class="btn btn-primary">Сдать тест</button>
+    {% if (test_found == 1) %}
+        <main class="container my-5">
+            <section id="test" class="my-5">
+                {% if results %}
+                    <div class="result-table">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ваш ответ</th>
+                                    <th>Правильный ответ</th>
+                                    <th>Результат</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in results %}
+                                <tr>
+                                    <td>{{ result.user_answer }}</td>
+                                    <td>{{ result.correct_answer }}</td>
+                                    <td class="{{ 'correct' if result.is_correct else 'incorrect' }}">
+                                        {{ '✔️' if result.is_correct else '❌' }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <form method="GET">
+                            {% if group_test == 0 %}
+                                <button type="submit" class="btn btn-primary">Сбросить</button>
+                            {% endif %}
+                            {% if group_test == 1 %}
+                                <a href = "/test" class="btn btn-primary">Сбросить</a>
+                            {% endif %}
                         </form>
                     </div>
+                {% endif %}
+                {% if not (results)%}
+                    <div class="px-5">
+                        <div class="row">
+                            <div class="col-md-8 task-box">
+                                <form id="quizForm" method="POST">
+                                    {% for index, question in enumerate(questions) %}
+                                    <div class="tablo mb-3">
+                                        <label for="answer{{ index }}" class="form-label">{{ question.text }}</label>
+                                        {% if(question.type == "pic") %}
+                                            <img src="{{url_for('static', filename=question.additional)}}"></img>
+                                            <p style="text-align: justify; line-height: 28px"></p>
+                                        {% endif %}
+                                        {% if(question.type == "table") %}
+                                            <p style="text-align: justify; line-height: 28px"><a href={{question.additional}} download>Скачать таблицу</a></p>
+                                        {% endif %}
+                                        {% if(question.type == "doc") %}
+                                            <p style="text-align: justify; line-height: 28px"><a href={{question.additional}} download>Скачать документ</a>
+                                        {% endif %}
+                                        {% if(question.type == "txt") %}
+                                            <p style="text-align: justify; line-height: 28px"><a href={{question.additional}} download>Скачать текстовый файл</a></p>
+                                        {% endif %}
+                                        <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
+                                        <input type="text" id="correct_answer{{ index }}" name="correct_answer{{ index }}" value="{{ question.correct_answer }}" class="form-control" style="visibility: hidden;">
+                                    </div>
+                                    {% endfor %}
+                                    <button type="submit" class="btn btn-primary">Сдать тест</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+        </main>
+    {% endif %}
+    {% if (test_found == 0 or test_found == -1) %}
+        <script>
+            function random_test()
+            {
+                var sti = document.getElementById("specific-test-id");
+                sti.value = "-1";
+                form.submit();
+            }
+        </script>
+        <main class="container my-5">
+            <section id="test" class="my-5">
+                <h2 class="text-center">Управление тестами</h2>
+                <div class="input-group mb-4">
+                    <form id="notRandom" method="POST" class="d-flex">
+                        <label for="specific-test-id" class="form-label me-2">Пройти конкретный тест</label>
+                        <input type="text" id="specific-test-id" name="specific-test-id" class="form-control me-2" style="width: 300px;" required>
+                        <button type="submit" class="btn btn-primary me-2">Найти</button>
+                        <button class="btn btn-secondary me-2" onclick ="random_test()">Случайный тест</button>
+                        <a class="btn btn-success" href="/add_test">Создать тест</a>
+                    </form>
                 </div>
-            </div>
-            {% endif %}
-        </section>
-    </main>
+                {% if test_found == -1 %}
+                    <h6 class="text-danger text-center">Введите корректное ID!</h6>
+                {% endif %}
+            </section>
+        </main>
+    {% endif %}
 
     <footer class="text-center" style="background:#2D2D2D">
         <div class="container text-white py-4">

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content1 %}
+<link rel="stylesheet" href="/static/styles/add_test.css">
+<link rel="stylesheet" href="/static/styles/main_styles.css">
+{% endblock %}
+
+{% block content2 %}
+    <div class="card-body div-questions">
+        <h2 class="text-center"> Группа успешно создана! <br> В дальнейшем к ней можно будет получить доступ по ее токину: {{res}}</h2>
+    </div>
+{% endblock %}

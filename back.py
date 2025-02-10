@@ -4,16 +4,22 @@ import random, os
 app = Flask(__name__)
 
 def find_cnt_of_tests():
-    tests_cnt = 0
+    tests_cnt = 1
     while os.path.isfile("sources/tests/test_" + "0" * (5 - len(str(tests_cnt))) + str(tests_cnt) + ".txt"):
         tests_cnt += 1
-    return tests_cnt
+    return tests_cnt - 1
 
 def find_cnt_of_users():
     users_cnt = 1
-    while os.path.isfile("sources/users/user_" + "0" * (3 - len(str(users_cnt))) + str(users_cnt) + ".txt"):
+    while os.path.isfile("sources/users/main_data/user_" + "0" * (3 - len(str(users_cnt))) + str(users_cnt) + ".txt"):
         users_cnt += 1
-    return users_cnt
+    return users_cnt - 1
+
+def find_cnt_of_groups():
+    tests_cnt = 1
+    while os.path.isfile("sources/groups/lectures/group_" + "0" * (5 - len(str(tests_cnt))) + str(tests_cnt) + ".txt"):
+        tests_cnt += 1
+    return tests_cnt - 1
 
 def make_cnt(ind):
     if ind < 10:
@@ -24,7 +30,7 @@ def make_cnt(ind):
         return str(ind)
 
 def make_users_id(ind):
-    name = "sources/users/user_"
+    name = "sources/users/main_data/user_"
     name += make_cnt(ind)
     name += ".txt"
     return name
@@ -40,6 +46,24 @@ def get_users_status(ind):
 
 def push_new_user(data, ind):
     name = make_users_id(ind)
+    file = open(name, mode="w", encoding="UTF-8")
+    file.write("2\n")
+    file.write(data["name"] + "\n")
+    file.write(data["login"] + "\n")
+    file.write(data["email"] + "\n")
+    file.write(data["password"] + "\n")
+    file.write("0\n0\n")
+    file.write(data["nick"] + "\n")
+    file.close()
+
+    name = "sources/users/groups/user_" + make_cnt(ind) + ".txt"
+    file = open(name, mode="w", encoding="UTF-8")
+    file.close()
+
+def change_users_data(data, ind):
+    name = make_users_id(ind)
+    file = open(name, mode="w", encoding="UTF-8")
+    file.close()
     file = open(name, mode="w", encoding="UTF-8")
     file.write("2\n")
     file.write(data["name"] + "\n")
@@ -69,12 +93,24 @@ def find_user(data, cnt_users):
                 return -1
     return -2
 
-def make_users_groups():
-    return [['Группа 1', "/group1"], ['Группа 2', "/group2"], ['Группа 3', "/group3"]]
+def make_users_groups(ind):
+    name = "sources/users/groups/user_" + make_cnt(ind) + ".txt"
+    ans = []
+    with open(name) as file:
+        for index_of_group in file:
+            index_of_group = index_of_group.replace("\n", "")
+            name_of_group = "sources/groups/main_information/group_" + "0" * (5 - len(str(index_of_group))) + str(index_of_group) + ".txt"
+            file1 = open(name_of_group, mode='r', encoding='UTF-8')
+            name1 = file1.readline()
+            description = file1.readline()
+            id_of_owner = file1.readline()
+            file1.close()
+            ans.append([name1, "/group" + str(index_of_group) + "_" + str(id_of_owner)])
+    return ans
 
 def users_data(ind):
-    name = make_users_id(ind)
-    file = open(name, mode="r", encoding="UTF-8")
+    name1 = make_users_id(ind)
+    file = open(name1, mode="r", encoding="UTF-8")
     status = file.readline().replace("\n", "")
     name = file.readline().replace("\n", "")
     login = file.readline().replace("\n", "")
@@ -93,7 +129,7 @@ def users_data(ind):
         'solved': solved,
         'unsolved' : unsolved,
         'nick': nick,
-        'groups': make_users_groups()
+        'groups': make_users_groups(ind)
     }
 
 def check(data, cnt_users):
@@ -108,6 +144,20 @@ def check(data, cnt_users):
         if login == login1:
             return False
     return True
+
+def check1(data, cnt_users, id):
+    login = data["login"]
+    for i in range(1, cnt_users + 1):
+        name = make_users_id(i)
+        file = open(name, mode="r", encoding="UTF-8")
+        stutus = file.readline()
+        name = file.readline()
+        login1 = file.readline().replace("\n", "")
+        file.close()
+        if login == login1 and i != id:
+            return False
+    return True
+
 
 def generate_task(data, tasks_ind):
     gen_tasks = []
@@ -129,11 +179,28 @@ def generate_task(data, tasks_ind):
         task_number = int(file.readline().replace("\n", ""))
         task_diff = int(file.readline().replace("\n", ""))
         task_text = file.readline()
+        task_additional = file.readline().rstrip()
         task_ans = file.readline()
         task_index = ind
         file.close()
 
-        a = [task_number, task_index, task_text, task_ans]
+        try:
+            if task_additional[len(task_additional) - 1] == 't':
+                task_type = "txt"
+                task_additional = "sources/tasks/" + task_additional
+            if task_additional[len(task_additional) - 1] == 'g':
+                task_type = "pic"
+                task_additional = "images/" + task_additional
+            if task_additional[len(task_additional) - 2] == 's':
+                task_type = "table"
+                task_additional = "sources/tasks/" + task_additional
+            if task_additional[len(task_additional) - 2] == 'c':
+                task_type = "doc"
+                task_additional = "sources/tasks/" + task_additional
+        except:
+            task_type = "none"
+
+        a = [task_number, task_index, task_text, task_ans, task_additional, task_type]
         gen_tasks.append(a)
         ans = [gen_n, gen_tasks]
         return ans
@@ -146,12 +213,30 @@ def generate_task(data, tasks_ind):
                     task_number = int(file.readline().replace("\n", ""))
                     task_diff = int(file.readline().replace("\n", ""))
                     task_text = file.readline()
+                    task_additional = file.readline().rstrip()
                     task_ans = file.readline()
                     task_index = ind
                     file.close()
 
                     gen_n += 1
-                    a = [task_number, task_index, task_text, task_ans]
+
+                    try:
+                        if task_additional[len(task_additional) - 1] == 't':
+                            task_type = "txt"
+                            task_additional = "sources/tasks/" + task_additional
+                        if task_additional[len(task_additional) - 1] == 'g':
+                            task_type = "pic"
+                            task_additional = "images/" + task_additional
+                        if task_additional[len(task_additional) - 2] == 's':
+                            task_type = "table"
+                            task_additional = "sources/tasks/" + task_additional
+                        if task_additional[len(task_additional) - 2] == 'c':
+                            task_type = "doc"
+                            task_additional = "sources/tasks/" + task_additional
+                    except:
+                        task_type = "none"
+
+                    a = [task_number, task_index, task_text, task_ans, task_additional, task_type]
                     gen_tasks.append(a)
         ans = [gen_n, gen_tasks]
         return ans
@@ -163,7 +248,23 @@ def generate_random_questions_for_test(tasks_ind):
         if len(tasks_ind[j][i]) != 0:
             z = random.randint(0, len(tasks_ind[j][i])-1)
             d = unpack_task(tasks_ind[j][i][z])
-            random_questions.append({'text': d['problem'].rstrip(), 'correct_answer': d['answer'].rstrip()})
+            task_additional = d['additional']
+            try:
+                if task_additional[len(task_additional)-1] == 't' :
+                    task_type = "txt"
+                    task_additional = "sources/tasks/" + task_additional
+                if task_additional[len(task_additional)-1] == 'g' :
+                    task_type = "pic"
+                    task_additional = "images/" + task_additional
+                if task_additional[len(task_additional)-2] == 's' :
+                    task_type = "table"
+                    task_additional = "sources/tasks/" + task_additional
+                if task_additional[len(task_additional)-2] == 'c' :
+                    task_type = "doc"
+                    task_additional = "sources/tasks/" + task_additional
+            except:
+                task_type = "none"
+            random_questions.append({'text': d['problem'].rstrip(), 'correct_answer': d['answer'].rstrip(), 'additional': task_additional, 'type': task_type})
     return random_questions
 
 
@@ -174,6 +275,7 @@ def unpack_task(id):
     result['kim'] = f.readline().rstrip()
     result['dif'] = f.readline().rstrip()
     result['problem'] = f.readline().rstrip()
+    result['additional'] = f.readline().rstrip()
     result['answer'] = f.readline().rstrip()
     f.close()
     return result
@@ -186,7 +288,23 @@ def generate_specific_test(test_id):
     questions = []
     while task_id:
         d = unpack_task(task_id)
-        questions.append({'text': d['problem'], 'correct_answer': d['answer']})
+        task_additional = d['additional']
+        try:
+            if task_additional[len(task_additional)-1] == 't' :
+                task_type = "txt"
+                task_additional = "sources/tasks/" + task_additional
+            if task_additional[len(task_additional)-1] == 'g' :
+                task_type = "pic"
+                task_additional = "images/" + task_additional
+            if task_additional[len(task_additional)-2] == 's' :
+                task_type = "table"
+                task_additional = "sources/tasks/" + task_additional
+            if task_additional[len(task_additional)-2] == 'c' :
+                task_type = "doc"
+                task_additional = "sources/tasks/" + task_additional
+        except:
+            task_type = "none"
+        questions.append({'text': d['problem'].rstrip(), 'correct_answer': d['answer'].rstrip(), 'additional': task_additional, 'type': task_type})
         task_id = f.readline().rstrip()
     f.close()
     return questions

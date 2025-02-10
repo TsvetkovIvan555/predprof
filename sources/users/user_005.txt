@@ -1,8 +1,0 @@
-2
-test_user full name
-test_user
-test@gmail.com
-1234
-0
-0
-nick
