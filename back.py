@@ -339,7 +339,7 @@ def make_new_task(data, index):
     file = open(name, mode="w", encoding="UTF-8")
     file.write(data["number"] + "\n")
     file.write(diff[data["difficulty"]] + "\n")
-    file.write(data["text"] + "\n")
+    file.write(data["text"] + "\n" + "\n")
     file.write(data["answer"] + "\n")
     file.close()
     return [int(diff[data["difficulty"]]) - 1, int(data["number"]) - 1, int(index)]
