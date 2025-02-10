@@ -315,7 +315,7 @@ def check_test(data):
     correct_answers = []
     i = 0
 
-    while data.get('answer' + str(i)):
+    while data.get('answer' + str(i)) != None:
         user_answers.append(data.get('answer' + str(i)))
         correct_answers.append(data.get('correct_answer' + str(i)))
         i += 1

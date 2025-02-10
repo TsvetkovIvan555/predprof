@@ -139,7 +139,7 @@
                                         {% if(question.type == "txt") %}
                                             <p style="text-align: justify; line-height: 28px"><a href={{question.additional}} download>Скачать текстовый файл</a></p>
                                         {% endif %}
-                                        <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px" required>
+                                        <input type="text" id="answer{{ index }}" name="answer{{ index }}" class="form-control" style="width:300px">
                                         <input type="text" id="correct_answer{{ index }}" name="correct_answer{{ index }}" value="{{ question.correct_answer }}" class="form-control" style="visibility: hidden;">
                                     </div>
                                     {% endfor %}
